@@ -1,0 +1,47 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{математическая статистика. Билеты}
+\author{alexander.veselyev }
+\date{\today}
+
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc} % указывает кодировку документа
+\usepackage[T2A]{fontenc} % указывает внутреннюю кодировку TeX 
+\usepackage[russian]{babel} % указывает язык документа
+
+\usepackage{amsmath}
+
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+
+\begin{document}
+\section{Эффективность и асимптотическая эффективность оценки максимального правдоподобия.}
+\textbf{Условия регулярности} (продолжение) для ОМП\\
+4) $p_\theta$ дифференцируема на $\Theta$\\
+5) Плотность $p_\theta(x)$ трижды непрерывно дифференцируема на $\Theta$ для $\forall x\in\mathcal{A}$\\
+6) Интеграл $\int_\mathcal{A}{p_\theta(x)\mu(dx)}$ можно трижды непрерывно дифференцировать под знаком интеграла\\
+7) Информация Фишера $i(\theta) = \mathbf{E}_\theta\left(\frac{\partial}{\partial\theta}\ln{p_\theta(x)}\right)^2$ одного наблюдения\\
+8) $\forall\theta_0\in\Theta\ \exists c>0$ и $H(x)$ т.ч. $\forall x\in\mathcal{A} \forall \theta\in(\theta_0-c;\theta_0+c)$
+$$ \left| \frac{\partial^3}{\partial\theta^3}\ln{p_\theta(X)}\right| \leq H(X) $$
+и $\mathbf{E}_\theta H(X_1) < +\infty$\\
+\textbf{Теорема} (об асимптотической нормальности ОМП)\\
+В условиях регулярности 1-8\\
+1) Пусть $\widehat{\theta}$ - состоятельная последовательность решений уравнения правдоподобия. Тогда $\widehat{\theta}$ - асимптотически нормальная оценка $\theta$ с асимптотической дисперсией $\frac{1}{i(\theta)}$ \\
+2) Пусть $\widehat{\theta}$ - какая-то асимптотически нормальноая оценка $\theta$ с асимптотической диспресией $\sigma^2(\theta)$, причем $\sigma(\theta)$ непрерывна по $\theta$. Тогда $\forall\theta
+\in \Theta:\ \sigma^2(\theta) \geq \frac{1}{i(\theta)}$\\
+\textbf{Вывод} в условиях регулярности 1-8 ОМП является наилучшей в асимптотическом подходе среди всех асимптотически нормальных оценок с непрерывной асимптотической дисперсией.\\
+\textbf{Теоерма} (эффективность ОМП)\\
+В условиях неравенства Рао-Крамера, если $\widehat{\theta}$ - эффективная оценка $\theta$, то $\widehat{\theta}$ - ОМП.\\
+$\blacktriangleleft$
+\\
+По критерию эффективности: $\widehat{\theta} - \theta = \frac{1}{\mathcal{I}_X(\theta)}\mathcal{U}_\theta(X)$\\
+$$\mathcal{U}_\theta(X) = \frac{\partial}{\partial\theta}\ln{p_\theta(X)} = \mathcal{I}_X(\theta)(\widehat{\theta} - \theta) $$
+Получаем: при $\theta < \widehat{\theta}$: $\frac{\partial}{\partial\theta}\ln{p_\theta(X)} > 0$ 
+(т.к. $\mathcal{I}_X(\theta) \geq 0$)\\ 
+При $\theta > \widehat{\theta}$: $\frac{\partial}{\partial\theta}\ln{p_\theta(X)} < 0$\\
+$\Rightarrow$ на $\widehat{\theta}$ достигается максимум функции правдоподобия $\Rightarrow$ $\widehat{\theta}$ - ОМП.\\
+$\blacktriangleright$
+\end{document}

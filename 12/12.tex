@@ -1,0 +1,52 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{математическая статистика. Билеты}
+\author{alexander.veselyev }
+\date{\today}
+
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc} % указывает кодировку документа
+\usepackage[T2A]{fontenc} % указывает внутреннюю кодировку TeX 
+\usepackage[russian]{babel} % указывает язык документа
+
+\usepackage{amsmath}
+
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+\begin{document}
+\section{Полные статистики. Оптимальные оценки. Алгоритм нахождения оптимальных оценок. Примеры.}
+\textbf{Определение} Наилучшая оценка в классе несмещенных оценок с квадратичной функцией потерь (т.е. с наименьшей дисперсией) называется \textbf{оптимальной}\\
+\textbf{Определение} статистика $s(X)$ наывается \textbf{полной} для $\{P_\theta,\ \theta\in\Theta\}$
+если для любой борелевской функции $f$ т.ч. $E_\theta f(s(X)) = 0$ следует, что $f(s(X)) = 0\ P_\theta\text{п.н.}\ \forall\theta\in\Theta$\\
+\textbf{Лемма}\\
+Пусть $s(X)$ - достаточная статистика $\{P_\theta,\ \theta\in\Theta\}$ Если $\widehat{\theta}(X)$ - единственная несмещенная $s$-измеримая оценка $\tau(\theta)$, то $\widehat{\theta}(X)$ - оптимальная оценка $\tau(\theta)$\\
+$\blacktriangleleft$
+\\
+Пусть $\theta^*(X)$ - не $s$-измеримая несмещенная оценка $\tau(\theta)$ и лучше $\widehat{\theta}(X)$\\
+Тогда $\theta^{**} = \mathbf{E}_\theta(\theta^*(X)|s(X))$ - лучше $\theta^*$ (К-Б-Р) и является $s$-измеримой. Тогда $\theta^{**} = \widehat{\theta}$ и, значит, $\theta^*$ хуже $\widehat{\theta}$. Противоречие\\
+$\blacktriangleright$\\
+
+\textbf{Теорема} (Лемана-Шеффе об оптимальной оценке)\\
+Пусть $s(X)$ - полная, достаточная статистика для $\{P_\theta,\ \theta\in\Theta\}$, а $\varphi(s(X))$ - несмещенная оценка $\tau(\theta)$. Тогда $\varphi(s(X))$ - оптимальная оценка $\tau(\theta)$\\
+$\blacktriangleleft$
+\\
+Покажем, что $\varphi(s(X))$ - единственная несмещенная $s$-измеримая оценка $\tau(\theta)$\\
+Пусть не так, т.е. $\exists\ \psi:\ \mathbf{E}_\theta\psi(s(X)) = \tau(\theta)\ \Rightarrow \ \mathbf{E}_\theta(\varphi(s(X)) - \psi(s(X))) = 0\ \forall\theta\in\Theta$\\
+т.к. $s(X)$ полная, то $\psi - \varphi = 0$ $P_\theta$ п.н. $\Rightarrow$  с точностью до п.н. $\varphi(s(X))$ - единственная несмещенная $s$-измеримая оценка.\\
+$\blacktriangleright$\\
+\textbf{Пример}\\
+$X_i\sim\mathcal{U}[0,\theta]$. Найти оптимальную оценку $\theta$\\
+$\blacktriangleleft$
+\\
+$f = I(X_{(n)}\leq\theta)I(X_{(1)}\geq 0)\frac{1}{\theta^n}$\\
+$X_{(n)}$ - достаточная статистика. (теорема о факторизации)\\
+$0 = \mathbf{E}f(X_{(n)}) = \int_0^\theta{f(x)\frac{n}{\theta^n}x^{n-1}dx} =$\\
+$= \frac{n}{\theta^n}\int_0^\theta{f(x)X^{n-1}dx} = 0\ \forall\theta>0\Rightarrow $ $X_{(n)}$ - полная\\
+$\mathbf{E}_\theta X_{(n)} = \int_0^\theta{x\frac{n}{\theta^n}x^{n-1}} = $\\
+$= \frac{n}{\theta^n}\int_0^\theta{x^ndx} = \frac{\theta n}{n+1}$\\
+$\Rightarrow$ $\mathbf{E}_\theta\left(\frac{n+1}{n}X_{(n)}\right) = \theta\ \Rightarrow$ $\frac{n+1}{n}X_{(n)}$ - оптимальная оценка $\theta$\\
+$\blacktriangleright$
+\end{document}

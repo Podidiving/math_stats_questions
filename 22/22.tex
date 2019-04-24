@@ -1,0 +1,80 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{математическая статистика. Билеты}
+\author{alexander.veselyev }
+\date{\today}
+
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc} % указывает кодировку документа
+\usepackage[T2A]{fontenc} % указывает внутреннюю кодировку TeX 
+\usepackage[russian]{babel} % указывает язык документа
+
+\usepackage{amsmath}
+
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+\begin{document}
+\section{Критерий Колмогорова-Смирнова (без доказательства), удобная формула для вычисления значения статистики. Критерий Крамера-Мизеса-Смирнова (без доказательства), удобная формула для вычисления значения статистики.}
+
+\textbf{Критерий Колмогорова-Смирнова}\\
+\textbf{Теорема}(б/д)\\
+Пусть $X_1,\dots,X_n\sim F$, $F$-непрерывная функция распределения,\\
+$F_n^*(x)\frac{1}{n}\sum_{i=1}^nI(X_i\leq x)$ - эмпирическая функция распределения.\\
+Тогда
+$$ \sqrt{n}\sup_x|F_n^*(x) - F(x)|\xrightarrow{d}K $$
+Где $K$ - распределение Колмогорова с функцией распределения:
+\begin{equation*}
+	\begin{cases}
+		\sum_{k=-\infty}^{+\infty}{(-1)^ke^{-2k^2x^2}}&x>0\\
+		0&x\leq0
+	\end{cases}
+\end{equation*}
+
+\textit{Критерий}\\
+Пусть $u_{1-\varepsilon}$ - квантиль распределения $K$\\
+$\{\sqrt{n}\sup_x|F_n^*(x) - F(x)| > u_{1-\varepsilon}\}$\\
+$\varepsilon$ - асимптотический уровень значимости.\\
+$$ \sup_x|F_n^*(x) - F(x)| = \max_{1\leq i\leq n}\max(|F(X_{(i)}) - \frac{i}{n}|, |F(X_{(i)}) - \frac{i-1}{n}|) $$
+\textbf{Критерий Крамера-Мизеса-Смирнова ($\omega^2$)}\\
+$X_1,\dots,X_n\sim P$, $F_n^*$ - эмпирическая функция распределения
+
+$$\omega_n = n\int_{-\infty}^{+\infty}{(F_n^*(x) - F(x))^2dP} $$
+
+\textbf{Теорема}(б/д)\\
+$\omega_n\xrightarrow{d}a1$\\
+(Полагаем, что $X_{(0)} = -\infty,\ X_{(n+1)}= +\infty$)\\
+$$\int_{-\infty}^{+\infty}{(F_n^*(x) - F(x))^2dP} = \int_{-\infty}^{+\infty}{\left(\sum_{k=0}^n{\frac{k}{n}I(X_{(k)}\leq x < X_{(k+1)})} - F(x)\right)^2dP} = $$
+
+$$ = \frac{1}{3} - 2\sum_{k=0}^n{\int_{X_{(k)}}^{X_{(k+1)}} \frac{k}{n} F(x)dP  }  + \sum_{k=0}^n{ \frac{k^2}{n^2} \left(  F(X_{(k+1)}) - F(X_{(k)}) \right) }$$
+Пояснение:\\
+$\frac{1}{3} = \int_{-\infty}^{+\infty}{F^2(x)dP}$\\
+$\sum_{k=0}^n{ \frac{k^2}{n^2} \left(  F(X_{(k+1)}) - F(X_{(k)}) \right) } =  \int_{-\infty}^{+\infty}{\left(\sum_{k=0}^n{\frac{k}{n}I(X_{(k)}\leq x < X_{(k+1)})}\right)^2dP}$\\
+Продолжим:
+$$ = \frac{1}{3} - \sum_{k=0}^n{\frac{k}{n}\left(F^2(X_{(k+1)} - F^2(X_{(k)})  \right)}  + \sum_{k=0}^n{ \frac{k^2}{n^2} \left(  F(X_{(k+1)}) - F(X_{(k)}) \right) }   $$
+Теперь покажем, что это равняется:
+$$ \frac{1}{12n^2} + \frac{1}{n}\sum_{k=1}^n{\left(F(X_{(k)}) - \frac{2k-1}{2n}  \right)^2}$$
+
+$$ \frac{1}{12n^2} + \frac{1}{n}\sum_{k=1}^n{\frac{(2k-1)^2}{4n^2}} = \frac{1}{12n^2} + \frac{1}{4n^3}\sum_{k=1}^n{(4k^2 - 4k + 1)} =$$ 
+$$= \frac{1}{12n^2} + \frac{1}{4n^3}\left(4\frac{n(n+1)(2n+1)}{6} -4\frac{n(n+1)}{2} + n   \right) = \frac{1}{3}$$
+
+Разберемся со 2м слагаемым
+$$\sum_{k=0}^n{(F^2(X_{(k + 1)}) - F^2(X_{(k)}))}  = \frac{1}{n}\left(  F^2(X_{(2)}) - F^2(X_{(1)}) + 2F^2(X_{(3)}) - 2F^2(X_{(2)}) + \dots + n(1 - F^2(X_{(n)}))  \right) = $$
+
+\textbackslash* $F^2(X_{(n+1)}) = 1$ *\textbackslash
+
+$$ = -\frac{1}{n}\sum_{k=1}^n{F^2(X_{(k)}} + 1$$
+
+Не забываем про то, что в нашей сумме это слагаемое было со знаком минус\\
+Разберемся с последним слагаемым
+
+$$ \sum_{k=0}^n{\frac{k^2}{n^2}( F(X_{(k+1)}) - F(X_{(k)})  )} = -\frac{1}{n^2}\sum_{k=1}^n{(2k-1)F(X_{(k)})} + \frac{1}{n^2}n^2 $$
+
+\textbackslash* Аналогично второму, только $(s-1)^2 - s^2  = -2s + 1$ *\textbackslash
+
+Что и будет удвоенным произведением суммы квадратов минус 1 той суммы, к которой сводим.
+
+
+\end{document}

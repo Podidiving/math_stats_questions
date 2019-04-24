@@ -1,0 +1,73 @@
+\documentclass[25pt]{article}
+\usepackage[utf8]{inputenc}
+
+\title{математическая статистика. Билеты}
+\author{alexander.veselyev }
+\date{\today}
+
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc} % указывает кодировку документа
+\usepackage[T2A]{fontenc} % указывает внутреннюю кодировку TeX 
+\usepackage[russian]{babel} % указывает язык документа
+
+\usepackage{amsmath}
+
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+\newcommand\independent{\protect\mathpalette{\protect\independenT}{\perp}}
+\def\independenT#1#2{\mathrel{\rlap{$#1#2$}\mkern2mu{#1#2}}}
+
+
+\usepackage{color}   %May be necessary if you want to color links
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true, %set true if you want colored links
+    linktoc=all,     %set to all if you want both sections and subsections linked
+    linkcolor=blue,  %choose some color if you want links to stand out
+}
+
+\begin{document}
+
+
+\section{Способы сравнения оценок.}
+\textbf{Определение} Борелевская функция $g(x,y) \geq 0,\ \forall x\ g(x,x) = 0$ называется \textbf{функцией потерь}\\
+\textbf{Примеры}\\
+1) $g = |x - y|$ (MAE)\\
+2) $g = (x - y)^2$ (MSE)\\
+3) Пусть A - неотрицательно определенная матрица,\\ $g(\theta^*, \theta) = \langle A(\theta^* - \theta), \theta^* - \theta\rangle$\\
+\textbf{Определение} Пусть $g(x,y)$ - функция потерь, тогда \textbf{функцией риска} оценки $\theta^*$ называется $R(\theta^*(X), \theta) = \textbf{E}_\theta g(\theta^*(X),\theta)$\\
+\textbf{1. Равномерный подход}\\
+\textbf{Определение} Оценка $\theta^*$ \textbf{лучше} оценки $\Hat{\theta}$, если $\forall \theta\in\Theta$ $R(\Hat{\theta},\theta) \geq R(\theta^*,\theta)$ и хотя бы для одного $\theta$ неравенство строгое.\\
+\textbf{Определение} Оценка $\theta^*$ называется \textbf{наилучшей} в классе $\mathcal{K}$, если она лучше любой другой оценки из $\mathcal{K}$\\
+\textit{Замечание} наилучшая оценка не всегда существует.\\
+Средне квадратический подход.\\
+$g(x,y) = (x - y)^2$, $\mathcal{K}$ - класс несмещенных оценок параметра $\tau(\theta)$. Тогда задача сводится к поиску оценки с равномерно наименьшей дисперсией.\\
+$$\textbf{E}_\theta(\theta^*(X)-\theta)^2 =$$ $$= \textbf{E}_\theta(\theta^*(X) - \textbf{E}_\theta\theta^*(X))^2 + \textbf{E}_\theta(\textbf{E}_\theta\theta^*(X) - \theta)^2 = \textbf{E}_\theta(\theta^*(X) - \textbf{E}_\theta\theta^*(X))^2 + (\textbf{E}_\theta\theta^*(X) - \theta)^2$$\\
+\textbf{Определение} Оценка $\theta^*$ \textbf{допустимая} оценка $\theta$ в классе $\mathcal{K}$, если $\nexists \Hat{\theta}(X)\in\mathcal{K}$ т.ч. $\Hat{\theta}$ лучше $\theta^*$\\ \\
+\textbf{2. Минимаксный подход}\\
+\textbf{Определение} Оценка $\theta^*$ называется \textbf{наилучшей в минимаксном подходе}, если 
+$$\sup_{\theta\in\Theta}R(\theta^*(X),\theta)=\inf_{\Hat{\theta}}\sup_{\theta\in\Theta}R(\Hat{\theta}(X),\theta) $$
+\\
+\textbf{3. Асимптотический подход}\\
+Пусть $\theta^*_1$ и $\theta^*_2$ - асимптотически нормальные оценки с асимптотическими дисперсиями $\sigma_1^2(\theta)$ и $\sigma_2^2(\theta)$\\
+Тогда $\theta^*_1$ \textbf{лучше} $\theta^*_2$ \textbf{в асимптотическом подходе}, если
+$$\forall \theta\in\Theta\ \sigma_1^2(\theta)\leq\sigma^2_2(\theta)$$
+Причем для некоторых $\theta$ неравенство строгое.\\ \\
+\textbf{4. Байесовский подход}\\
+На множестве $\Theta$ задаем вероятностную меру $Q$ и $\theta$ случайно выбирается из $\Theta$ по закону $Q$
+Если $\theta^*(X)$ - оценка параметра $\theta$, а $R(\theta^*(X),\theta)$ - функция риска, то положим $R(\theta^*(X)) = \textbf{E}_Q R(\theta^*(X),\theta) = \int_\Theta R(\theta^*(X),\theta)d Q$\\
+\textbf{Определение} Оценка $\theta^*(X)$ называется \textbf{наилучшей в байесовском подходе}, если $R(\theta^*(X)) = \min_{\Hat{\theta}}R(\Hat{\theta}(X))$\\
+\textbf{Утверждение} Пусть $\theta^*$ - наилучшая оценка параметра $\theta$ в байесовском подходе.
+Тогда $\theta^*$ - допустимая оценка в равномерном подходе.\\
+$\blacktriangle$
+\\
+Пусть это не так, т.к. $\exists \Hat{\theta}(X)$ т.ч.
+$$R(\Hat{\theta}(X),\theta) \leq R(\theta^*(X),\theta) \Rightarrow$$
+$$\textbf{E}_Q R(\Hat{\theta}(X),\theta) \leq \textbf{E}_Q R(\theta^*(X),\theta) \Rightarrow$$
+противоречие
+$\blacktriangle$
+
+
+\end{document}

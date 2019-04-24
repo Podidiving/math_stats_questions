@@ -1,0 +1,99 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{математическая статистика. Билеты}
+\author{alexander.veselyev }
+\date{\today}
+
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc} % указывает кодировку документа
+\usepackage[T2A]{fontenc} % указывает внутреннюю кодировку TeX 
+\usepackage[russian]{babel} % указывает язык документа
+
+\usepackage{amsmath}
+
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+\begin{document}
+
+\section{Состоятельность критерия. Критерий хи-квадрат Пирсона: доказательство сходимости к хи-квадрат закону и доказательство состоятельности.}
+$X_1,\dots,X_n$ - выборка\\
+$P(X_1 = a_j) = p_j,\ \ \sum{p_j} = 1$\\
+$H_0: p_j = p_j^0,\ j\in\{1,\dots,m\}$\\
+$\mu_j = \sum_{i=1}^n{I(x_i = a_j)}$\\
+Рассмотрим статистику\\
+$$\widehat{\chi}_n = \sum_{j = 1}^m{\frac{(\mu_j - np_j^0)^2}{np_j^0}}$$
+\textbf{критерий хи-квадрат Пирсона}\\
+\textbf{Теорема}\\
+В предположении, что гипотеза $H_0$ верна\\
+$\widehat{\chi}_n\xrightarrow{d}\chi^2_{m-1}$\\
+Как применять?\\
+Пусть $u_{1-\varepsilon}$ - (1 - $\varepsilon$) квантиль распределения $\chi^2_{m-1}$\\
+$\{\widehat{\chi}_n > u_{1-\varepsilon}\}$ - наш критерий\\
+$P(\widehat{\chi}_n > u_{1-\varepsilon})\rightarrow\varepsilon,\ n\rightarrow+\infty$\\
+($\varepsilon$ - асимптотический уровень доверия)\\
+$\forall j\in\{1,\dots,m\}\ np_j^0\geq 10$ $\Rightarrow$ точность достаточно высока для применения критерия\\
+\textbf{Определение} Критерий называется \textbf{состоятельным}, если $\forall P\in \mathcal{P}_1:\ \ \ P((X_1,\dots,X_n)\in S)\rightarrow 1$ (т.е. вероятность ошибки 2го рода $\rightarrow$ 0)\\
+\textbf{Утверждение} Критерий хи-квадрат Пирсона состоятельный\\
+$\blacktriangleleft$\\
+$$\widehat{\chi}_n\xrightarrow{d}\chi^2_{m-1}$$
+Если $\exists p_j\neq p_j^0$ (т.е. $p_j\in\mathcal{P}_1$) $\Rightarrow$ $P(\widehat{\chi}_n > u_{1-\varepsilon})\rightarrow 1$ - это надо показать, тогда это и будет определением состоятельности. Заметим, что не важно, что стоит на месте $u_{1-\varepsilon}$ Будет $\rightarrow$ 1 и при любой другой константе, стоящей на месте $u_{1-\varepsilon}$\\
+
+$$ \widehat{\chi}^2_n = \sum_{j=1}^m{\frac{n\left(\frac{\mu_j}{n} - p_j^0\right)^2}{p_j^0}} $$
+Возьмем это $p_j\neq p_j^0$\\
+Т.к. $\frac{\mu_j}{n} = \frac{\sum{I(X_i=a_j)}}{n}$ (У.З.Б.Ч) $\xrightarrow{\text{п.н.}} \mathbf{E}I(X_1 = a_j) = p_j$\\
+$\Rightarrow$
+
+$$ \widehat{\chi}^2_n \geq \frac{n\left(\frac{\mu_j}{n} - p_j^0\right)^2}{p_j^0} \xrightarrow{\text{п.н.}} \infty $$
+
+Пояснение:
+
+$\frac{\mu_j}{n}\xrightarrow{\text{п.н.}}p_j$ $\Rightarrow$ (теорема о наследовании)
+$$ \frac{\left(\frac{\mu_j}{n} - p_j^0\right)^2}{p_j^0} \xrightarrow{\text{п.н.}} \frac{\left(p_j - p_j^0\right)^2}{p_j^0} $$
+
+С ростом n критерий стремится к бесконечности (п.н.). Значит, вероятность того, что он будет больше какой-то константы стремится к 1.\\
+
+$\blacktriangleright$\\
+
+Теперь можно доказать теорему о сходимости к распределению хи-квадрат\\
+$\blacktriangleleft$\\
+Обозначим $Y_i = (I(X_i=a_1),\dots,I(X_i=a_m))^T,\ i\in\{1,\dots,т\}$\\
+т.е. в этом векторы все нули, кроме одной координаты, где стоит 1.\\
+$X_i$ независимы, значит их индикаторы тоже независимы, а значит $Y_1,\dots,T_n$ независимы\\
+$\mathbf{E}Y_i = (p_1^0,\dots,p_m^0)^T$\\
+$\mathbf{D}I(X_1=a_j) = p_j^0 - (p_j^0)^2$\\
+$cov\left(I(X_1=a_i),I(X_1=a_j)\right) = \mathbf{E}(I(X_1 = a_i)I(X_1 = a_j)) - p_i^0p_j^0 = -p_i^0p_j^0 $
+
+Обозначим $\Sigma$ - матрица ковариаций (размер $m\times m$\\
+Тогда на i-м диагональном элементе будет $p_i^0 - (p_i^0)^2$\\
+На i,j элементе (вне диагонали) $-p_i^0p_j^0$\\
+
+$\Sigma = A - \widehat{\Sigma}$, где A - диагональная матрица, $A_{ii} = p_i^0$, $\widehat{\Sigma}_{ij} = p_i^0p_j^0$\\
+
+$\widehat{\Sigma} = (p_1^0,\dots,p_m^0)^T(p_1^0,\dots,d_m^0)$\\
+Обозначим $\varpi^0 = (p_1^0,\dots,d_m^0)$\\
+По многомерной Ц.П.Т.
+$$ \sqrt{n}\left(\frac{Y_1+\dots+Y_n}{n} - (\varpi^0)^T\right) \xrightarrow{d} \mathcal{N}(0,\Sigma) $$
+$Y_1+\dots+Y_n = (\mu_1,\dots,\mu_m) =: \mu$\\
+$A$ диагональная, значит $A^{-1}$ диагональная $\rightarrow$ $\sqrt{A^{-1}}$ диагональная, с элементами на диагонали: $\sqrt{A^{-1}}_{ii} = \frac{1}{\sqrt{p_i^0}}$\\
+$$\sqrt{A^{-1}}\sqrt{n}\left(\frac{\mu}{n} - (\varpi^0)^T\right)\xrightarrow{d}\mathcal{N}(0, I_m - \sqrt{A^{-1}}(\varpi^0)^T\varpi^0\sqrt{A^{-1}}) $$
+$\sqrt{A^{-1}}(\varpi^0)^T\varpi^0\sqrt{A^{-1}} = (\sqrt{p_1^0},\dots,\sqrt{p_m^0})^T(\sqrt{p_1^0},\dots,\sqrt{p_m^0})$\\
+Возьмем такую ортогональную матрицу C размера $m\times m$, что её первый столбец равен $(\sqrt{p_1^0},\dots,\sqrt{p_m^0})^T$\\
+$\Rightarrow$ $(\sqrt{p_1^0},\dots,\sqrt{p_m^0})C = (1,0,\dots,0)$\\
+
+Также отметим, что $C^T(\sqrt{p_1^0},\dots,\sqrt{p_m^0})^T(\sqrt{p_1^0},\dots,\sqrt{p_m^0})C $\\$= ((\sqrt{p_1^0},\dots,\sqrt{p_m^0})C)^T(\sqrt{p_1^0},\dots,\sqrt{p_m^0})C = (1,0,\dots,0)^T(1,0,\dots,0) =: M$ \\--- матрица $m\times m$, где везде нули, кроме $M_{11} = 1$\\ 
+Тогда
+
+$$C\sqrt{A^{-1}}\sqrt{n}\left(\frac{\mu}{n} - (\varpi^0)^T\right)\xrightarrow{d}\mathcal{N}(0, I_m - M) $$
+$\Rightarrow$
+$$ \|C\sqrt{A^{-1}}\sqrt{n}\left(\frac{\mu}{n} - (\varpi^0)^T\right)\|^2\xrightarrow{d}\chi^2_{m-1} $$
+(т.к. слева сумма квадратов стандарных нормальных величин, и их m-1 т.к. 1я величина имеет отклонение 0)\\
+$$\|C\sqrt{A^{-1}}\sqrt{n}\left(\frac{\mu}{n} - (\varpi^0)^T\right)\|^2 = 
+\|\sqrt{A^{-1}}\sqrt{n}\left(\frac{\mu}{n} - (\varpi^0)^T\right)\|^2 = $$ (ортогональная матрица не дает вклад в норму по определению)
+$$ = \sum_{j=1}^m{\left(\frac{\sqrt{n}}{\sqrt{p_j^0}}\left(\frac{\mu_j}{n} - p_j^0   \right)   \right)^2} =   \sum_{i = 1}^m{\frac{(\mu_j - np_j^0)^2}{np_j^0}} = \widehat{\chi}_n$$
+$\blacktriangleright$\\
+
+
+\end{document}

@@ -1,0 +1,105 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{математическая статистика. Билеты}
+\author{alexander.veselyev }
+\date{\today}
+
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc} % указывает кодировку документа
+\usepackage[T2A]{fontenc} % указывает внутреннюю кодировку TeX 
+\usepackage[russian]{babel} % указывает язык документа
+
+\usepackage{amsmath}
+
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+\begin{document}
+
+\section{Проверка статистических гипотез. Основная гипотеза и альтернатива. Критерий. Ошибка первого и второго рода. Уровень значимости, размер критерия и функция мощности. Равномерно наиболее мощные критерии и несмещенные критерии. Лемма Неймана-Пирсона.}
+
+Пусть $\mathcal{P}$ - семейство распределений\\
+$\mathcal{P}_0, \mathcal{P}_1 \subset \mathcal{P},\ \ \ \ \mathcal{P}_0\cap\mathcal{P}_1 = \o$\\
+
+\textbf{Определение} \textbf{Гипотезой} называется утверждение вида $P\in\mathcal{P}_0$\\
+т.е. $H_0:\ P\in\mathcal{P}_0$\\ 
+
+Пусть $X_1,\dots,X_n\sim P$\\
+
+$S\in\mathcal{B}(\mathbb{R}^n)$ - \textbf{критерий} (т.е. критерий это любое борелевское множество)\\
+
+\textit{Проверка гипотезы}:\\
+Если $(X_1,\dots,X_n)\in S$, то гипотеза $H_0$ отвергается (в пользу альтернативы, если она есть)\\
+$H_1:\ P\in\mathcal{P}_1$\\
+
+Если $(X_1,\dots,X_n)\notin S$, то гипотеза $H_0$ не отвергается\\
+
+\textit{Типы ошибок}\\
+\textit{Ошибка 1го рода} --- отвергнуть верную гипотезу\\
+\textit{Ошибка 2го рода} --- не отвергнуть неверную гипотезу\\
+
+Считается, что ошибка 1го рода более серьезная.\\
+
+\textbf{Определение} \textbf{Функция мощности} $f(Q, S) = Q(x\in S),$\\  $\  S\in\mathcal{B}(\mathbb{R}^n);\ Q\in\mathcal{P}$\\
+$P_0 \in\mathcal{P}_0:\ \ f(P_0,S)$ - для вероятности ошибки 1го рода\\
+$P_1\in\mathcal{P}_1:\ \ 1 - f(P_1, S)$ - для вероятности ошибки 2го рода\\
+
+\textit{Неформальная постановка задачи}: Сперва установим порог на ошибку первого рода, затем минимизируем ошибку 2го рода\\
+
+$\varepsilon$ --- \textbf{уровень значимости} критерия $S$, если $\forall P \in\mathcal{P}_0:\ f(P,S)\leq\varepsilon$\\
+
+$\varepsilon$ --- \textbf{размер критерия} $S$, если $\varepsilon = \sup_{P\in\mathcal{P}_0}{f(P,S)}$\\
+
+Пусть $S, R$ - критерии уровня значимости $\varepsilon$\\
+$S$ \textbf{мощнее} $R$, если $\forall P\in\mathcal{P}_):\ f(P,R)\leq f(P,S)$\\
+
+$S$ называется \textbf{равномерно наиболее мощным критерием} уровня значимости $\varepsilon$, если для любого критерия $R$ уровня значимости $\varepsilon$, $S$ мощнее $R$\\
+
+Гипотеза $H$ называется \textbf{простой}, если она имеет вид $P=P_0$\\
+
+Пусть $H_0,\ H_1$ - простые гипотезы.\\
+$H_0:\ P=P_0$\\$H_1:\ P=P_1$\\
+
+Либо $P_1,\ P_0$ оба дискретные, либо оба абсолютно непрерывные.\\
+
+Пусть $p_0, p_1$ - их плотности.\\
+
+Рассмотрим $S_\lambda = \{x: p_1(x) - \lambda p_0(x) \geq 0 \},\ \lambda\geq 0$\\
+
+\textbf{Определение} Критерий $S$ называется \textbf{несмещенным}, если
+$$\sup_{P\in\mathcal{P}_0}{f(P,S)}\leq\inf_{P\in\mathcal{P}_1}{f(P,S)}$$
+
+\textbf{Лемма} (Нейман-Пирсон)\\
+1) Пусть $R$ - критерий:\\
+$f(P_0, R) \leq f(P_0,S_\lambda)$\\
+Тогда $f(P_1,R)\leq f(P_1,S_\lambda)$\\
+2) $f(P_0,S_\lambda)\leq f(P_1,S_\lambda)$\\
+$\blacktriangleleft$\\
+1) Рассмотрим $P_1(x\in R) - \lambda P_0(x\in R)$
+$$ = \int_R{P_1(x)\mu(dx)} - \lambda\int_R{P_0(x)\mu(dx)} = \int_R{(P_1(x) - \lambda P_0(x))\mu(dx)}$$
+$$ = \int_\mathbb{R}{(P_1(x) - \lambda P_0(x))I(x\in R)\mu(dx)} \leq \int_\mathbb{R}{(P_1(x) - \lambda P_0(x))I(x\in R)I(x\in S_\lambda)\mu(dx)}$$
+$$\leq \int_\mathbb{R}{(P_1(x) - \lambda P_0(x))I(x\in S_\lambda)\mu(dx)}$$
+$$ = \int_{S_\lambda}{P_1(x)\mu(dx)} - \lambda\int_{S_\lambda}{P_0(x)\mu(dx)} = P_1(x\in S_\lambda) - \lambda P_0(x\in S_\lambda)$$
+Получаем
+$$ P_1(x\in R) - P_1(x\in S_\lambda) \leq \lambda(P_0(X\in S_\lambda) - P_0(x\in R)) $$
+Справа $\leq 0$ по условию\\
+$\Rightarrow\ \ \ \ P_1(x\in R)\leq P_1(x\in S_\lambda)$\\
+
+2) Пусть $\lambda\geq 0$
+$$ f(P_1,S_\lambda) = P_1(x\in S_\lambda) \geq \lambda P_0(x\in S_\lambda)\geq P_0(x\in S_\lambda)$$
+Пусть $0\leq\lambda<1$\\
+$$P_1(x\notin S_\lambda) = 1 - P_1(x\in S_\lambda)$$
+$$\int{p_1(x)I(x\notin S_\lambda)\mu(dx)} = P_1(x\notin S_\lambda)\leq\lambda P_0(x\notin S_\lambda) = \lambda\int{p_0(x)I(x\notin S_\lambda)\mu(dx)}$$
+$$\int{p_1(x)I(x\notin S_\lambda)\mu(dx)} - \lambda\int{p_0(x)I(x\notin S_\lambda)\mu(dx)} = 
+ \int{(p_1(x) - \lambda p_0(x))I(x\notin S_\lambda)\mu(dx)} \leq 0$$
+
+$\Rightarrow$ $P_1(x\notin S_\lambda)\leq\lambda P_0(x\notin S_\lambda)\leq P_0(x\notin S_\lambda)$\\
+$\Rightarrow$ $1 - P_1(x\in S_\lambda)\leq P_0(x\in S_\lambda)\ \rightarrow P_1(x\in S_\lambda)\geq P_0(x\in S_\lambda)$\\
+$\blacktriangleright$\\ 
+
+
+
+
+\end{document}

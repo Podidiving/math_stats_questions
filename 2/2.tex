@@ -1,0 +1,156 @@
+\documentclass[25pt]{article}
+\usepackage[utf8]{inputenc}
+
+\title{математическая статистика. Билеты}
+\author{alexander.veselyev }
+\date{\today}
+
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc} % указывает кодировку документа
+\usepackage[T2A]{fontenc} % указывает внутреннюю кодировку TeX 
+\usepackage[russian]{babel} % указывает язык документа
+
+\usepackage{amsmath}
+
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+\newcommand\independent{\protect\mathpalette{\protect\independenT}{\perp}}
+\def\independenT#1#2{\mathrel{\rlap{$#1#2$}\mkern2mu{#1#2}}}
+
+
+\usepackage{color}   %May be necessary if you want to color links
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true, %set true if you want colored links
+    linktoc=all,     %set to all if you want both sections and subsections linked
+    linkcolor=blue,  %choose some color if you want links to stand out
+}
+
+\begin{document}
+
+
+\section{Теорема о наследовании сходимостей. Лемма Слуцкого с доказательством и ее применение. Наследование асимптотической нормальности. Многомерный случай. Наследование состоятельности.}
+
+\textbf{Напоминание}
+\\
+\textbf{Виды сходимостей случайных векторов}
+\begin{enumerate}
+    \item $\xi_n \xrightarrow{\text{п.н.}} \xi$, если $P(\omega:\ \lim \xi_n(\omega) = \xi(\omega)) = 1$
+    \item  $\xi_n \xrightarrow{P} \xi$, если $\forall \varepsilon > 0 \ P(\|\xi_n - \xi\|_2 > \varepsilon) \rightarrow 0$
+    \item  $\xi_n \xrightarrow{L_p} \xi$, если $\mathbf{E}(\|\xi_n-\xi\|_p)^p \rightarrow 0 $
+    \item  $\xi_n \xrightarrow{d} \xi$, если для любой непрерывной ограниченной функции $f$: 
+    $\mathbf{E}(f(\xi_n)) \rightarrow \textbf{E}(f(\xi))$
+\end{enumerate}
+\textbf{Взаимосвязь} \\
+Из сходимости почти наверное следует сходимость по вероятности
+\\
+Из сходимости в $L_p$ следует сходимость по вероятности
+\\
+Из сходимости по вероятности следует сходимость по распределению
+\\ \\ \\ 
+
+\textbf{Теорема}(наследование сходимостей) \\
+1) Пусть $\xi_n \xrightarrow{\text{п.н.}} \xi$  - случайные векторы размера m\\
+Пусть $h : \mathbb{R}^m \rightarrow \mathbb{R}^k$ - функция, непрерывная почти всюду относительно
+распределения $\xi$ (т.е. $\exists B \in \mathcal{B}(\mathbb{R}^m)$ т.ч. $P(\xi \in B) = 1$ и $h$ непрерывна на $B$.\\
+Тогда $h(\xi_n) \xrightarrow{\text{п.н.}} h(\xi)$
+\\
+2) Аналогичное верно, если заменить сходимость п.н. на сходимость по вероятности\\
+3) Пусть $\xi_n \rightarrow \xi$ по распределению - случайные векторы размера m\\
+Пусть $h : \mathbb{R}^m \rightarrow \mathbb{R}^k$ - функция, непрерывная на множестве значений $\xi$\\
+Тогда $h(\xi_n) \xrightarrow{d} h(\xi)$.
+\\
+$\blacktriangle$
+\\
+1) $P(\lim h(\xi_n) = h(\xi)) \geq P(\{\lim\xi_n = \xi\} \cap B) = 1$ (т.к. справа такие точки, что они принадлежат B и на них сходится последовательность сл. в. из непрерывности h на B будет следовать сходимость. Пересечение событий с вероятностью 1 дает вероятность 1)\\
+2) Предположим, что это не так. Тогда существует подпоследовательность $\{\xi_{n_m}\}$ т.ч. $\exists \varepsilon > 0 \ \exists \varepsilon_1 > 0$ :
+$$ P(\|h(\xi_{n_m}) - h(\xi)\|_2 > \varepsilon) > \varepsilon_1 $$
+Из последовательности $\xi_{n_m} \rightarrow \xi$ сходящуюся по вероятности можно выбрать подпоследовательность $\{ \xi_{n_{m_r}}\}$ сходящуюся п.н. $\Rightarrow$ $h(\xi_{n_{m_r}}) \xrightarrow{\text{п.н.}} h(\xi)$ по пункту 1. Противоречие
+\\
+3) $\xi_n \xrightarrow{d} \xi$ $\Leftrightarrow$ $\forall f$ - непрерывной и ограниченной $\mathbf{E}(f(\xi_n)) \rightarrow \mathbf{E}(f(\xi))$ $\Rightarrow$ $\forall g$ $\mathbf{E}(g(h(\xi_n))) \rightarrow \mathbf{E}(g(h(\xi)))$ т.к. $g(h)$ - непрерывная и ограниченная\\
+$\blacktriangle$\\ \\
+
+\textbf{Лемма}(Слуцкого) \\
+Пусть последовательности случайных величин $\{\xi_n\}$ и $\{\eta_n\}$ таковы, что
+$\xi_n \xrightarrow{d} \xi$ и $\eta_n \xrightarrow{d} C$\\
+Тогда $\xi_n + \eta_n \xrightarrow{d} \xi + C$ и $\xi_n\eta_n \xrightarrow{d} \xi C$
+\\
+$\blacktriangle$
+\\
+(В доказательстве используется другое, эквивалентное определение сходимости по распределению: последовательность функций распределения стремится к предельной функции распределения для любой точки непрерывности предельной функции распределения)
+\\
+Пусть $t$ - точка непрерывности $F_{\xi + \eta}$ пусть $F_{\xi + \eta}$ непрерына в точках $t \pm \varepsilon$
+$$ F_{\xi_n + \eta_n}(t) = P(\xi_n + \eta_n \leq t) = P(\xi_n + \eta_n \leq t,\ \eta_n < C - \varepsilon) + P(\xi_n + \eta_n \leq t,\ \eta_n \geq C - \varepsilon) $$ $$ \leq P(\eta_n < C) + P(\xi_n \leq t - C + \varepsilon) = P(\eta_n < C) + P(\xi_n + C \leq t + \varepsilon)$$
+Первая вероятность стремится к 0 (сходимость по распределению к константе влечет сходимость по вероятности)
+\\
+Из теоремы о наследовании: $\xi_n + C \rightarrow \xi + C$ 
+\\
+$\Rightarrow$ $P(\xi_n + C \leq t + \varepsilon) = F_{\xi_n + C}(t + \varepsilon) \rightarrow F_{\xi + C}(t + \varepsilon)$
+\\
+$\Rightarrow$ $P(\eta_n < C) + P(\xi_n + C \leq t + \varepsilon) \rightarrow F_{\xi + C}(t + \varepsilon)$
+\\
+$$ F_{\xi_n + \eta_n}(t) = P(\xi_n + \eta_n \leq t) = P(\xi_n + \eta_n \leq t,\ \eta_n > C + \varepsilon) + P(\xi_n + \eta_n \leq t,\ \eta_n \leq C + \varepsilon)$$
+$$ \geq  P(\xi_n + \eta_n \leq t,\ \eta_n \leq C + \varepsilon) \geq  P(\xi_n + C + \varepsilon \leq t,\ \eta_n \leq C + \varepsilon)$$
+$$ =  P(\xi_n + C + \varepsilon \leq t) - P(\xi_n + C + \varepsilon \leq t,\ \eta_n > C + \varepsilon) $$
+$$ \geq P(\xi_n + C + \varepsilon \leq t) - P(\eta_n > C + \varepsilon)$$
+Второе слагаемое, аналогично, стремится к 0. первое слагаемое (= $F_{\xi_n + C}(t - \varepsilon)$) аналогично стремится к $F_{\xi + C}(t - \varepsilon)$
+\\
+Значит: 
+$$ F_{\xi + C}(t-\varepsilon) \leq \underline{\lim} F_{\xi_n + \eta_n} \leq \overline{\lim} F_{\xi_n + \eta_n} \leq F_{\xi + C}(t + \varepsilon) $$
+\\
+Получается $\lim F_{\xi_n + \eta_n}(t) = F_{\xi + \eta}(t)$
+\\
+Доказательство для произведения аналогично.\\
+$\blacktriangle$
+\\
+Применение леммы Слуцкого: доказательство факта, что из ассимптотической нормальности следует сильная состоятельность (билет 1)
+\\ \\ 
+\textbf{Теорема}($\delta$-метод)\\
+Пусть $\xi_n \xrightarrow{d} \xi$, числовая последовательность $b_n \rightarrow 0$, $b_n \neq 0$, функция $h: \mathbb{R} \rightarrow \mathbb{R}$ - дифференцируема в точке $a$. Тогда
+$$ \frac{h(a + \xi_n b_n) - h(a)}{b_n} \xrightarrow{d} h'(a)\xi$$ 
+\\
+$\blacktriangle$
+\\
+Определим функцию $H(x) = \frac{h(a + x) - h(a)}{x}$ и доопределим в 0 значением $h'(a)$. $H(x)$ непрерына в точке 0.
+\\
+По лемме Слуцкого $\xi_n b_n \xrightarrow{d} 0 \Rightarrow \xi_n b_n \xrightarrow{P} 0$
+\\
+Воспользуемся теоремой о наследовании сходимостей:
+$$ \frac{h(a + \xi_n b_n) - h(a)}{\xi_n b_n} = H(\xi_n b_n) \xrightarrow{P} H(0) = h'(a) $$
+Значит, по лемме Слуцкого:
+$$ \frac{h(a + \xi_n b_n) - h(a)}{b_n} \xrightarrow{d} h'(a)\xi $$
+\\
+$\blacktriangle$
+\\
+\textbf{Следствие}(наследование ассимптотической нормальности)\\
+Пусть $\theta^*$ - асимптотически нормальная оценка $\theta$ с асимптотической дисперсией $\sigma^2(\theta)$,
+функция $\tau$ непрерывно дифференцируема на $\Theta \subset \mathbb{R}$.\\
+Тогда $\tau(\theta^*)$ - асимптотически нормальная оценка параметра $\tau(\theta)$ с асимптотической дисперсией $\sigma^2(\theta)[\tau'(\theta)]^2$
+\\
+$\blacktriangle$
+\\
+$\xi_n = \sqrt{n}(\theta^* - \theta),\ b_n = \frac{1}{\sqrt{n}},\ a = \theta,\ h = \tau$\\
+Осталось воспользоваться определением асимптотической нормальности и $\delta$-методом.
+\\
+$\blacktriangle$
+\\
+\textbf{Утверждение}\\
+$\delta$-метод работает и в многомерном случае: производная заменяется на матрицу частных производных.\\
+\textbf{Следствие}(многомерный случай)\\
+В многомерном случае на функцию $\tau$ накладывается ограничение на существование матрицы частных производных в каждой точке $\theta \in \Theta$. Тогда, если $\theta^*$ - асимптотически нормальная оценка $\theta$ с асимптотической матрицей ковариации $\Sigma(\theta)$, то
+$\tau(\theta^*)$ - асимптотически нормальная оценка $\tau(\theta)$ с асимптотической матрицей ковариаций $(\tau'(\theta))^T\Sigma(\theta)\tau'(\theta)$
+\\
+\\
+\textbf{Утверждение}(наследование состоятельности)\\
+Если $\theta^*$ состоятельная (сильно состоятельная) оценка $\theta$ и функция $\tau$ непрерывна во всех точках $\theta \in \Theta$, то $\tau(\theta^*)$ - состоятельная (сильно состоятельная) оценка $\tau(\theta)$
+\\
+$\blacktriangle$
+\\
+Утверждение - тривиальное следствие из теоремы о наследовании сходимостей.
+\\
+$\blacktriangle$
+\\
+
+\end{document}

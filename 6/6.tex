@@ -1,0 +1,91 @@
+\documentclass[25pt]{article}
+\usepackage[utf8]{inputenc}
+
+\title{математическая статистика. Билеты}
+\author{alexander.veselyev }
+\date{\today}
+
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc} % указывает кодировку документа
+\usepackage[T2A]{fontenc} % указывает внутреннюю кодировку TeX 
+\usepackage[russian]{babel} % указывает язык документа
+
+\usepackage{amsmath}
+
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+\newcommand\independent{\protect\mathpalette{\protect\independenT}{\perp}}
+\def\independenT#1#2{\mathrel{\rlap{$#1#2$}\mkern2mu{#1#2}}}
+
+
+\usepackage{color}   %May be necessary if you want to color links
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true, %set true if you want colored links
+    linktoc=all,     %set to all if you want both sections and subsections linked
+    linkcolor=blue,  %choose some color if you want links to stand out
+}
+
+\begin{document}
+
+
+\section{Свойства оценки максимального правдоподобия: экстремальное свойство и состоятельность.}
+
+\textbf{Условия Регулярности модели}\\
+1) $\{P_\theta,\ \theta\in\Theta\}$ - семейство распределений, доминируемое относительно
+меры $\mu$, $P_{\theta_1} \neq P_{\theta_2}$ при $\theta_1 \neq \theta_2$\\
+2) $\mathcal{A} = \{x\in\mathcal{X},\ p_\theta(x)>0\}$ не зависит от $\theta$\\
+3) Наблюдение $X$ - выбока из $P \in \{P_\theta,\ \theta\in\Theta\}$\\
+\textbf{Теорема} (экстремальное свойство правдоподобия)\\
+В условиях регулярности 1-3 $\forall \theta_0,\ \theta\in\Theta,\ \theta_0\neq\theta$ выполнено:\\
+$P_{\theta_0}(f_{\theta_0}(X_1\dots X_n)>f_\theta(X_1\dots X_n)) \xrightarrow[n\rightarrow+\infty]{} 1$\\
+$\blacktriangle$
+\\
+$f_{\theta_0}(X_1\dots X_n)>f_\theta(X_1\dots X_n)\ \Leftrightarrow\ \frac{1}{n}\ln\frac{f_\theta(X)}{f_{\theta_0}(X)}<0$\\
+т.к. $f_\theta(X) = \prod_{i=1}^n p_\theta(X_i)\ \Rightarrow$ по УЗБЧ\\
+$\frac{1}{n}\ln\frac{f_\theta(X)}{f_{\theta_0}(X)}=\frac{1}{n}\sum_{i=1}^n{\ln\frac{p_\theta(X_i)}{p_{\theta_0}(X_i)}}\xrightarrow{P_\theta\text{п.н.}}\textbf{E}_{\theta_0}\ln\frac{p_\theta(X_1)}{p_{\theta_0}(X_1)}$\\
+Тогда $P_{\theta_0}(f_{\theta_0}(X_1\dots X_n)>f_\theta(X_1\dots X_n))\rightarrow P_{\theta_0}(\textbf{E}_{\theta_0}\ln\frac{p_\theta(X_1)}{p_{\theta_0}(X_1)} < 0)$\\
+Вероятность справа 0 или 1. Покажем, что 1\\
+$$\textbf{E}_{\theta_0}\ln\frac{p_\theta(X_1)}{p_{\theta_0}(X_1)} = \int_{\mathcal{A}}\ln\frac{p_\theta(x)}{p_{\theta_0}(x)}p_{\theta_0}(x)\mu(d x)$$
+$\ln\frac{p_\theta(x)}{p_{\theta_0}(x)} = \ln(1 + \frac{p_\theta(x)}{p_{\theta_0}(x)} - 1)$ и воспользуемся
+тем, что\\ $\ln(1+x)\leq x,\ x>-1$
+$$\int_{\mathcal{A}}\ln\frac{p_\theta(x)}{p_{\theta_0}(x)}p_{\theta_0}(x)\mu(d x) $$
+$$\leq \int_{\mathcal{A}}\left(\frac{p_\theta(x)}{p_{\theta_0}(x)} - 1\right)p_{\theta_0}(x)\mu(d x) = \int_\mathcal{A}{p_\theta(x)\mu(d x)} -\int_\mathcal{A}{p_{\theta_0}\mu(d x)} = 0$$
+$$\int_\mathcal{A}{p_\theta(x)\mu(d x)} -\int_\mathcal{A}{p_{\theta_0}\mu(d x)} = 0$$
+т.к. это плотности, и интегралы равны 1\\
+Когда возможно равенство?\\
+только когда $\frac{p_\theta(x)}{p_{\theta_0}(x)} = 1$, что противоречит 1му условию регулярности.\\
+$\Rightarrow$ неравенство стогое    
+\\
+$\blacktriangle$
+\\
+\textbf{Условия регулярности} (продолжение)
+\\
+4) $\Theta$ - окрытый интервал на $\mathbb{R}$\\
+5) Плотность $p_\theta(x)$ - непрерывно дифференцируема по $\theta$ при $x\in\mathcal{A}$\\
+\textbf{Теорема}\\
+В условиях регулярности, если уравнение $\frac{\partial}{\partial\theta}f_\theta = 0$ имеет решение, то одно из его решений является состоятельной оценкой $\theta$\\
+$\blacktriangleleft$\\
+$\theta_0\in\Theta$, $\varepsilon>0$ т.ч. $(\theta_0 -\varepsilon, \theta_0 + \varepsilon) \subset\Theta$\\
+$$P_{\theta_0}\left( f_{\theta_0}(X_1,\dots,X_n) > \max\{ f_{\theta_0 - \varepsilon}(X_1,\dots,X_n),f_{\theta_0 + \varepsilon}(X_1,\dots,X_n) ) \}  \right) \rightarrow 1$$
+$$P_{\theta_0}\left( \text{на} (\theta_0 -\varepsilon, \theta_0 + \varepsilon) \ \exists\text{ решение уравнения } \frac{\partial}{\partial\theta}f_\theta = 0    \right) \rightarrow 1 $$
+$\Rightarrow$
+$$ P_{\theta_0}\left(\text{ ближайшее к } \theta_0 \text{ решение лежит в } (\theta_0 - \varepsilon, \theta_0 + \varepsilon)\right) \rightarrow 1 $$
+Пусть $\theta^*$ ближайшее к $\theta_0$ решение $\Rightarrow$ $\theta^*\xrightarrow{P_{\theta_0}}\theta_0$\\
+$\blacktriangleright$\\
+
+\textbf{Следствие} (состоятельность ОМП)\\
+Пусть в условиях предыдущей теоремы $\forall n$ $\forall X_1,\dots,X_n$ $\exists!$ решение $\theta_n^*$ уравнения правдоподобия.\\
+Тогда $\theta^*_n$ - состоятельная оценка параметра $\theta$ и с вероятностью, стремящейся к 1, является ОМП. (т.е. решение уравнения правдоподобия - максимум)\\
+$\blacktriangle$
+\\
+Состоятельность следует из предыдущей теоремы.\\
+Пусть $\theta$ - истинное значение, $[\theta-a,\theta+a]\subset\Theta$
+$\Rightarrow$ с вероятностью, стремящейся к 1, $f_\theta(X)$ достигает максимума на отрезке $[\theta-a,\theta+a]$ в точке $\theta^*_n$, а других корней правдоподобия нет.\\
+Если $\Hat{\theta}$ - ОМП (в ней не обязательно $\frac{\partial}{\partial\theta}\ln{f_\theta(x)}=0$), не совпадающая с $\theta^*_n$, то где-то между ними - точка минимума, в которой $\frac{\partial}{\partial\theta}\ln{f_\theta(x)}=0$, что противоречит условию единственности решения уравнения.\\
+$\blacktriangle$
+\\
+
+\end{document}

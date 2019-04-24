@@ -1,0 +1,78 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{математическая статистика. Билеты}
+\author{alexander.veselyev }
+\date{\today}
+
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc} % указывает кодировку документа
+\usepackage[T2A]{fontenc} % указывает внутреннюю кодировку TeX 
+\usepackage[russian]{babel} % указывает язык документа
+
+\usepackage{amsmath}
+
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+
+\begin{document}
+\section{Эффективные оценки. Информация Фишера. Неравенство Рао-Крамера. Пример
+для бернуллиевского распределения.}
+
+Пусть семейство распределений $\mathcal{P} = \{P_\theta, \theta \in \Theta \}$ доминируемо относительно меры $\mu$\\
+\textbf{Условия Регулярности}\\
+1) $\Theta \subset \mathcal{R}$ - открытый интервал\\
+2) Множество $\mathcal{A} = \{x\in\mathcal{X}:p_\theta(x)>0\}$ не зависит от $\theta$\\
+3) Для для любой статистики $S(x_1,\dots,x_n)$: если $\exists \mathbf{E}_\theta S^2(x_1,\dots,x_n) < \infty$ для $\forall \theta$, то
+$$ \frac{\partial}{\partial\theta}\mathbb{E}_\theta S(X_1,\dots,X_n) = \frac{\partial}{\partial\theta}\int_{\mathcal{A}^n}{S(x_1,\dots,x_n)p_\theta(x_1,\dots,x_n)d\mu} =$$ $$= \int_{\mathcal{A}^n}{\frac{\partial}{\partial\theta}S(x_1,\dots,x_n)p_\theta(x_1,\dots,x_n)d\mu}$$
+$$= \int_{\mathcal{A}^n}{S(x_1,\dots,x_n)\frac{p_\theta'}{p_\theta}p_\theta d\mu} = $$ $$= \int_{\mathcal{A}^n}{S(x_1,\dots,x_n)\frac{\partial \ln{p_\theta}}{\partial\theta}p_\theta d\mu} =
+\mathbf{E}S(X_1,\dots,X_n)\left(\frac{\partial}{\partial\theta}\ln{p_\theta(X_1,\dots,X_n)}\right)
+$$
+(возможно дифференцирование под знаком интеграла)\\
+Случайная величина $\mathcal{U}_\theta(X) = \frac{\partial}{\partial\theta}\ln{p_\theta(X)}$ называется \textbf{вкладом наблюдения X}\\
+Величина $\mathcal{I}_X(\theta) = \mathbf{E}_\theta\mathcal{U}_\theta^2(X)$ называется \textbf{количеством информации (по Фишеру)} о параметре $\theta$, содержащемся в наблюдении $X$\\
+4) $\mathcal{I}_X(\theta)$ положительна и конечна $\forall \theta\in\Theta$\\
+\textbf{Теорема} (неравенство Рао-Крамера)\\
+Пусть выполнены условия регулярности 1-4 и $\widehat{\theta}(X)$ - несмещенная оценка параметра $\tau(\theta)$ с условием $\mathbf{E}\widehat{\theta}^2(X) < +\infty\ \ \forall\theta\in\Theta$\\
+Тогда:
+$$\mathbf{D}_\theta\widehat{\theta}(X) \geq \frac{(\tau'(\theta))^2}{\mathcal{I}_X(\theta)} $$
+$\blacktriangleleft$
+\\
+Из условия регулярности 3:\\
+Положим $S(X)=1 \Rightarrow \ 0 = \mathbf{E}_\theta\mathcal{U}_\theta(X)$\\
+Положим $S(X) = \widehat{\theta} \Rightarrow\ \frac{\partial}{\partial\theta}\tau(\theta) = \tau'(\theta) = \mathbf{E}_\theta(\widehat{\theta}(X)\mathcal{U}_\theta(X))$(1)\\
+$0 = \mathbf{E}_\theta(\tau(\theta)\mathcal{U}_\theta(X))$(2)\\
+вычитая из (1) (2), получим:
+$$ \tau'(\theta) = \mathbf{E}_\theta[(\widehat{\theta} - \tau(\theta)\mathcal{U}_\theta(X)]$$
+Из неравенства Коши-Буняковского:
+$$ [\tau'(\theta)]^2 = (\mathbf{E}_\theta[(\widehat{\theta} - \tau(\theta)\mathcal{U}_\theta(X)])^2
+\leq \mathbf{E}_\theta(\widehat{\theta}(X) - \tau(\theta))^2\mathbf{E}_\theta(\mathcal{U}_\theta(X))^2 $$
+$\blacktriangleright$\\
+Оценка, при которой достигается равенство в неравенстве Рао-Крамера называется \textbf{эффективной}
+оценкой параметра $\tau(\theta)$\\
+\textbf{Замечание} Эффективная оценка является наилучшей оценкой в среднеквадратичном подходе, в классе несмещенных оценок.\\
+\textbf{Утверждение}(аддитивности вероятности)\\
+Если $X = (X_1,\dots,X_n)$ - выбоорка, то $\mathcal{I}_X(\theta) = n i(\theta)$, где $i(\theta)$ - информация, заключенная в одном члене выборки.\\
+\textbf{Теорема} (критерий эффективности)\\
+Пусть выполнены условия регулярности Рао-Крамера\\
+Тогда $\widehat{\theta}(X)$ - эффективная $\Leftrightarrow \ \widehat{\theta}(X) - \tau(\theta) = c(\theta)\mathcal{U}_\theta(X)$, где $c(\theta) = \frac{\tau'(\theta)}{\mathcal{I}_X(\theta)}$\\
+$\blacktriangleleft$
+\\
+В доказательстве неравенства Рао-Крамера было:
+$$ [\tau'(\theta)]^2 = (\mathbf{E}_\theta[(\widehat{\theta} - \tau(\theta)\mathcal{U}_\theta(X)])^2
+\leq \mathbf{E}_\theta(\widehat{\theta}(X) - \tau(\theta))^2\mathbf{E}_\theta(\mathcal{U}_\theta(X))^2 $$
+Равенство в неравенстве Коши-Буняковского $\Leftrightarrow$ случайные величины являются линейно зависимыми (почти наверное)\\
+т.е. $\widehat{\theta}(X) - \tau(\theta) = c(\theta)\mathcal{U}_\theta(X) + a(\theta)$ $P_\theta$ п.н. $\forall \theta$\\
+Возьмем математическое ожидание от обеих частей, слева получим 0, т.к. оценка несмещенная, $\mathbf{E}_\theta(c(\theta)\mathcal{U}_\theta(X)) = 0$ (т.к. $\mathbb{E}_\theta(\mathcal{U}_\theta(X)) = 0$), значит $a(\theta) = 0$\\
+Умножив обе части $\widehat{\theta}(X) - \tau(\theta) = c(\theta)\mathcal{U}_\theta(X)$ на $\mathcal{U}_\theta(X)$ и взяв математическое ожидание, получим требуемое.\\
+$\blacktriangleright$
+\\
+\textbf{Пример} Пусть $X_1,\dots,X_n$ из $Bern(\theta)$\\
+$p_\theta = \theta^{\sum x_i}(1 - \theta)^{n - \sum x_i}$\\
+$\mathcal{U}_\theta(X) = \frac{\sum x_i}{\theta}  - \frac{n - \sum x_i}{1 - \theta} = \frac{\sum x_i - n\theta}{\theta(1 - \theta)} = \frac{n}{\theta(1 - \theta)}(\overline{X} - \theta)$\\
+(т.е. $\overline{X}$ - эффективная оценка $\theta$)\\
+$\widehat{\theta} - \theta = c(\theta)\mathcal{U}_\theta$\\
+$c(\theta) = \frac{\tau'(\theta)}{n i(\theta)} \Rightarrow n i(\theta) = \tau'(\theta)c^{-1}(\theta) = \frac{n}{\theta(1 - \theta)} \Rightarrow i(\theta) = \frac{1}{\theta(1 - \theta)}$
+\end{document}

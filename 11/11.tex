@@ -1,0 +1,65 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{математическая статистика. Билеты}
+\author{alexander.veselyev }
+\date{\today}
+
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc} % указывает кодировку документа
+\usepackage[T2A]{fontenc} % указывает внутреннюю кодировку TeX 
+\usepackage[russian]{babel} % указывает язык документа
+
+\usepackage{amsmath}
+
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+\begin{document}
+\section{Достаточные статистики. Критерий факторизации. Теорема Блэкуэлла-Колмогорова-Рао.}
+
+\textbf{Определение} Пусть $(\Omega, \mathcal{F}, P)$ - вероятностное пространство, $P\in\mathcal{P}$,
+$\mathcal{P}=\{P_\theta,\ \theta\in\Theta\}$, $G\subset\mathcal{F}$, Если $\forall A\in\mathcal{F}$ $P_\theta(A|G)$ не зависит от $\theta$, то $G$ называется \textbf{достаточной $\sigma$-алгебра} \\
+Пусть $X$ - наблюдение, с распределением $P_\theta$, тогда статистика $s(X)$ называется \textbf{достаточной}, если $\forall A\ p_\theta(A|s(X))$ не зависит от $\theta$\\
+\textbf{Пример}\\
+$X_1,\dots,X_n \sim Bern(p)$\\
+$s(X) = \sum_{i=1}^n{X_i}$ - достаточная статистика.\\
+$\forall x\ p(X=x|s(X)=s(x))$ не зависит от $\theta$ т.к.\\
+$$ p(X=x|s(X)=s(x)) = \frac{p_\theta(X=x)}{p_\theta(s(X)=s(x))} \text{т.к. из X=x следует s(X)=s(x)}$$  $$= \frac{\theta^{\sum{x_i}}(1-\theta)^{n-\sum{x_i}}}{C_n^{\sum{x_i}}\theta^{\sum{x_i}}(1-\theta)^{n-\sum{x_i}}} = \frac{1}{C_n^{\sum{x_i}}}$$
+\textbf{Теорема} (критерий факторизации Неймана-Фишера)\\
+Пусть $\mathcal{P}=\{P_\theta,\ \theta\in\Theta\}$ либо целиком состоит из дискретных распределений, либо целиком состоит из абсолютно непрерывных распределений.\\
+$s(x)$ - достаточная статистика $\Leftrightarrow$ $p_\theta(x) = h(x)\gamma_\theta(s(x))$\\
+$\blacktriangleleft$ (только дискретный случай)\\
+$(\leftarrow)$ $p_\theta(x) = h(x)\gamma_\theta(x)$ Тогда $$P(X=x|s(X) = s(x)) = \frac{P(X=x)}{P(s(X)=s(x))} = \frac{P_\theta(X=x)}{\sum_{y: s(y) = s(X)}{P_\theta(X=y)}} = $$ $$
+\frac{h(x)\gamma_\theta(s(x))}{\sum_{y: s(y) = s(X)}h(y)\gamma_\theta(s(y))}
+ = \frac{h(x)}{\sum_{y: s(y) = s(X)}h(y)}$$
+$\Rightarrow$ не зависит от $\theta$ и $s(X)$ - достаточная.\\
+$(\rightarrow)$ Пусть $s(X)$ - достаточная статистика. Тогда\\
+$$ p_\theta(X = x) = \text{ \textbackslash *по определению*\textbackslash } = P_\theta(X=x|s(X) = s(x))*P_\theta(s(X)=s(x))$$
+Первый множитель - $h(x)$, второй $\gamma_\theta(s(x))$\\
+$\blacktriangleright$\\
+\textbf{Теорема} (Колмогоров-Блэкуэлл-Рао)\\
+Пусть $\theta^*$ - несмещенная оценка $\tau(\theta)$ и $s(X)$ - достаточная статистика, тогда
+\begin{enumerate}
+\item $\mathbf{E}(\theta^*|s(x))$ - несмещенная оценка параметра $\tau(\theta)$
+\item $\mathbf{D}(\mathbf{E}(\theta^*|s(x))) \leq \mathbf{D}(\theta^*)\ \forall\theta\in\Theta$
+\item Равенство достигается $\Leftrightarrow$ $\theta^*$ - является почти наверное $s(x)$ измеримой 
+\end{enumerate}
+$\blacktriangleleft$
+\\
+1) $\mathbf{E}(\mathbf{E}(\theta^*|s(X))) = \mathbf{E}(\theta^*) = \tau(\theta) \ \Rightarrow$ несмещенная оценка.\\
+2) Обозначим $\widehat{\theta} = \mathbf{E}(\theta^*|s(X))$
+$$ \mathbf{D}\theta^* = \mathbf{E}_\theta(\theta^* - \tau(\theta))^2 = \mathbf{E}_\theta[ (\theta^* - \widehat{\theta}) + (\widehat{\theta} - \tau(\theta))]^2 = \mathbf{E}_\theta(\theta^*-\widehat{\theta})^2 + \mathbf{D}_\theta\widehat{\theta} + 2\mathbf{E}_\theta[(\theta^*-\widehat{\theta})(\widehat{\theta} - \tau(\theta))] $$
+Покажем, что $\mathbf{E}_\theta[(\theta^*-\widehat{\theta})(\widehat{\theta} - \tau(\theta))]  = 0$
+\\
+$$\mathbf{E}_\theta[(\theta^*-\widehat{\theta})(\widehat{\theta} - \tau(\theta))]  = \mathbf{E}_\theta(\mathbf{E}_\theta[(\theta^*-\widehat{\theta})(\widehat{\theta} - \tau(\theta))]|s(X)) = 
+\mathbf{E}_\theta(\widehat{\theta} - \tau(\theta))(\mathbf{E}_\theta((\theta^*-\widehat{\theta})|s(X)))$$ 
+$$\backslash* \ \widehat{\theta} - \tau(\theta) \text{ - s(x)-измерима } *\backslash$$
+$$ \mathbf{E}_\theta(\widehat{\theta} - \tau(\theta))(\mathbf{E}_\theta((\theta^*-\widehat{\theta})|s(X))) = 0$$
+т.к.
+$$ \mathbf{E}_\theta(\theta^*-\widehat{\theta}|s(X)) = \mathbf{E}_\theta(\theta^*|s(X))-\widehat{\theta} = \widehat{\theta}-\widehat{\theta} = 0 $$
+$\Rightarrow$ $\mathbf{D}\theta^* \geq \mathbf{D}\widehat{\theta}$ т.к. $\mathbf{E}_\theta(\theta^*-\widehat{\theta})^2\geq 0$\\
+3) Равенство достигается, если $\mathbf{E}_\theta(\theta^*-\widehat{\theta})^2 = 0 \ \forall \theta\in\Theta$, т.е. $\theta^* = \widehat{\theta}$ п.н.\\
+$\blacktriangleright$
+\end{document}

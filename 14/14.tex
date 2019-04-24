@@ -1,0 +1,71 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{математическая статистика. Билеты}
+\author{alexander.veselyev }
+\date{\today}
+
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc} % указывает кодировку документа
+\usepackage[T2A]{fontenc} % указывает внутреннюю кодировку TeX 
+\usepackage[russian]{babel} % указывает язык документа
+
+\usepackage{amsmath}
+
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+\begin{document}
+\section{Доверительные интервалы, центральная функция, примеры нахождения. Асимптотические доверительные интервалы, алгоритм нахождения.}
+\textbf{Определение} 
+Пусть $X$ наблюдение из $P\in\{P_\theta\ \theta\in\Theta\}$\\
+Пара статистик $(T_1(X),T_2(X))$ называется \textbf{доверительным интервалом} уровня доверия $\gamma$ для $\theta$, если $\forall\theta\in\Theta$ $P_\theta(T_1(X)\leq\theta\leq T_2(X))\geq\gamma$.\\
+Доверительный интервал \textbf{точный}, если вместо $\geq$ стоит $=$\\
+\textbf{Определение}
+Пусть $\Theta\subset\mathbb{R}^k$, $S(X)\subset\mathbb{R}^k$ называется \textbf{доверительной областью} уровня доверия $\gamma$, если $P_\theta(\theta\in S(X))\geq\gamma\ \forall\theta\in\Theta$.
+\\
+\textbf{Метод центральной функции}\\
+Пусть существует функция $F(x,\theta)$ такая, что её распределение $Q$ не зависит от $\theta$.\\
+Пусть $\alpha_1, \alpha_2 \in (0,1):\ \alpha_2 - \alpha_1 = \gamma,\ \ z_{\alpha_1}, z_{\alpha_2}$ - квантили уровней $\alpha_1, \alpha_2$ соответственно распределения $Q$\\
+$P(z_{\alpha_1}\leq F(x,\theta)\leq z_{\alpha_2})\geq\gamma$\\
+Надо найти такую $S(x):\ \theta\in S(x)\Leftrightarrow\ z_{\alpha_1}\leq F(x,\theta)\leq z_{\alpha_2}$\\
+$\Rightarrow$ $P(\theta\in S(x))\geq\gamma$ $\Rightarrow$ $S(x)$ - доверительная область\\
+\textbf{Утверждение} $\xi$ - случайная величина с непрерывной функцией распределения $F$.
+Тогда $-\ln{F(\xi)}\sim Exp(1)$\\
+$\blacktriangleleft$
+\\
+$\eta = F(\xi)$\\
+$P(\eta\leq x) =\ \backslash* \ x\in[0,1]\ *\backslash \ = P(F(\xi)\leq x) = P(\xi \leq \sup(y:\ F(y)\leq x)) = x\ \Rightarrow\ \eta\sim\mathcal{U}[0,1]$\\
+$P(-\ln{\eta}\leq x) = \backslash* \ x\in[0,+\infty)\ *\backslash \ = P(\ln{\eta}\geq -x) = P(\eta\geq e^{-x})\sin exp(1)$\\
+$\blacktriangleright$\\
+$\xi_1,\dots,\xi_n\sim exp(1)$ и независимы $\Rightarrow$ $\sum_{i=1}^n{\xi_i}\sim\Gamma(1,n)$\\
+$X_1,\dots,X_n\sim P_\theta$ с непрерывной функцией распределения $F_\theta$\\
+$\Rightarrow$ $-\sum_{i=1}^n\ln{F_\theta(X_i)}$ - централььная функция.\\
+\textbf{Определение}
+Пусть $X_1,X_2,\dots$ - выборка (бесконечного объема)\\
+$(T_{1,n}(X_1,\dots,X_n),T_{2,n}(X_1,\dots,X_n))$ - \textbf{асимптотический доверительный интервал} уровня $\gamma$ если $\forall\theta\in\Theta$:
+$$ \underline{\lim}_{n\rightarrow\infty}p_\theta(T_{1,n}\leq\theta\leq T_{2,n})\geq\gamma $$
+Если можно написать $\lim_{n\rightarrow\infty}p_\theta(T_{1,n}\leq\theta\leq T_{2,n})=\gamma$ то асимптотический доверительный интервал называется \textbf{точным}\\
+Пусть $\widehat{\theta}_n$ - асимптотически нормальная оценка $\theta$ с асимптотической дисперсией 
+$\sigma^2(\theta)$, непрерывной на $\Theta$\\
+$$ \sqrt{n}(\widehat{\theta}_n - \theta) \xrightarrow{d} \mathcal{N}(0,\sigma^2(\theta)) $$
+$$ \frac{\sqrt{n}(\widehat{\theta}_n - \theta)}{\sqrt{\sigma^2(\theta)}} \xrightarrow{d} \mathcal{N}(0,1)$$
+$$ \frac{\sqrt{n}(\widehat{\theta}_n - \theta)}{\sqrt{\sigma^2(\widehat{\theta}_n)}} = 
+\frac{\sqrt{n}(\widehat{\theta}_n - \theta)}{\sqrt{\sigma^2(\theta)}} * \sqrt{\frac{\sigma^2(\theta)}{\sigma^2(\widehat{\theta}_n)}} $$
+$\widehat{\theta}_n$ - асимптотически нормальная оценка $\rightarrow$ состоятельная\\
+$\rightarrow$ $\sigma^2(\widehat{\theta}_n)\xrightarrow{P}\ \sigma^2(\theta)$ (наследование)\\
+$\rightarrow$ $\sqrt{\frac{\sigma^2(\theta)}{\sigma^2(\widehat{\theta}_n)}} \xrightarrow{P} 1$\\
+По Лемме Слуцкого: 
+$$\frac{\sqrt{n}(\widehat{\theta}_n - \theta)}{\sqrt{\sigma^2(\widehat{\theta}_n)}}
+\xrightarrow{d} \mathcal{N}(0,1) $$
+Т.о.
+$$ P_\theta\left(-u_{\frac{1+\gamma}{2}}\leq \frac{\sqrt{n}(\widehat{\theta}_n - \theta)}{\sqrt{\sigma^2(\widehat{\theta}_n)}} \leq u_{\frac{1+\gamma}{2}}\right) \rightarrow \gamma  $$
+$u_\alpha$ - $\alpha$ квантиль стандартного распределения
+$$ 
+P_\theta \left(\widehat{\theta}_n - 
+\sqrt{\frac{\sigma^2(\widehat{\theta}_n)}{n}}*u_{\frac{1+\gamma}{2}}
+\leq \theta \leq 
+\widehat{\theta}_n + \sqrt{\frac{\sigma^2(\widehat{\theta}_n)}{n}}*u_{\frac{1+\gamma}{2}}\right()
+ \rightarrow \gamma $$
+\end{document})

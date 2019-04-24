@@ -1,0 +1,73 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{математическая статистика. Билеты}
+\author{alexander.veselyev }
+\date{\today}
+
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc} % указывает кодировку документа
+\usepackage[T2A]{fontenc} % указывает внутреннюю кодировку TeX 
+\usepackage[russian]{babel} % указывает язык документа
+
+\usepackage{amsmath}
+
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+\begin{document}
+
+\section{Монотонное отношение правдоподобий. Примеры. Другие способы нахождения наиболее мощных критериев.}
+
+$H_0:\ \theta\leq\theta_0\ (\theta=\theta_0)$\\
+$H_1:\ \theta>\theta_0$\\
+
+$P_\theta$ имеет плотность $p_\theta$ (либо все распределения дискретные, либо все абсолютно непрерывные)\\
+
+$f_\theta(X_1,\dots,X_n)$ - функция правдоподобия\\
+
+$G(T(X)) = \frac{f_{\theta_2}(X_1,\dots,X_n)}{f_{\theta_1}(X_1,\dots,X_n)},\ \theta_2>\theta_1$\\
+G - монотонная (одинаковая для всех $\theta_2>\theta_1$)\\
+
+Тогда семейство распределений обладает \textbf{монотонным отношением правдоподобия} по статистике $T(X)$\\
+
+\textbf{Теорема}(б/д) Пусть $\mathcal{P} = \{ P_\theta,\ \theta\in\Theta  \}$ обладает возрастающим отношением правдоподобия. Пусть $P_{\theta_0}(T(X)\geq c) = \alpha$.\\
+Тогда $\{T(X)\geq c\}$ - р.н.м.к. уровня $\alpha$\\
+\textbf{Пример}\\
+Пусть $X_1,\dots,X_n\sim Bern(\theta)$\\
+$f_\theta = \theta^{\sum{x_i}}(1-\theta)^{n - \sum{x_i}}$\\
+$\frac{f_{\theta_2}}{f_{\theta_1}} = \left( \frac{\theta_2}{\theta_1}  \right)^{\sum{x_1}} \left( \frac{1 - \theta_2}{1 - \theta_1}  \right)^{n - \sum{x_1}} = G(\sum{x_i})$\\
+G возрастает $\sum{x_i}\sim Bin(n, \theta_0)$\\
+$P_{\theta_0}(\sum{x_i} \geq c) = \alpha$\\
+
+
+Если у нас $H_0:\ \theta\geq\theta_0\ (\theta=\theta_0)$, а $H_1:\ \theta<\theta_0$, то сделаем замену:\\
+$\hat{\theta} = -\theta,\ \hat{\theta}_0 = -\theta_0$\\
+$\hat{P}_{\hat{\theta}} := P_{-\hat{\theta}} = P_\theta,\ \hat{p}_{\hat{\theta}} = p_\theta,\ \hat{f}_{\hat{\theta}} = f_\theta$\\
+Тогда получим:\\
+$\hat{H}_0:\ \hat{\theta}\leq\hat{\theta}_0\ (\hat{\theta} = \hat{\theta}_0)$\\
+$\hat{H}_1:\ \hat{\theta}>\hat{\theta}_0$\\
+$\hat{\theta}_2 > \hat{\theta}_1\ (\theta_2 < \theta_1):$ 
+$\frac{\hat{f}_{\hat{\theta}_2}}{\hat{f}_{\hat{\theta}_1}} = \frac{f_{\theta_2}(X)}{f_{\theta_1}(X)} = G(T(X))$, G возрастает\\
+
+\textbf{Пример} (другой способ нахождения р.н.м.к.)\\
+$X_1\dots X_n\sim U[0;\theta]$\\
+$H_0:\ \theta=\theta_0$\\
+$H_1:\ \theta<\theta_0$\\
+
+$S = \{X_{(n)} \leq c\}$ $\ \ \ P_{\theta_0}(X_{(n)}\leq c\} = \left(\frac{c}{\theta_0}\right)^{n} = \alpha\ \ \Rightarrow \ \ \sqrt[n]{\alpha}\theta_0 = c$\\
+Пусть:
+$R: P_{\theta_0}(X_1,\dots,X_n\in R)\leq \alpha$\\
+
+Докажем, что $P_\theta(X_{(n)}\leq c)\geq P_\theta(X_1,\dots,X_n\in R)\ \forall\theta<\theta_0$\\
+(т.е. $S$ - р.н.м.к. уровня значимости $\alpha$)\\
+1) $\theta\leq \sqrt[n]{\alpha}\theta_0 (= c)\ \Rightarrow\ P_\theta(X_{(n)}\leq c) = 1$ (c правее значений, куда мы попадаем)\\
+2) $\sqrt[n]{\alpha}\theta_0<\theta<\theta_0$\\
+$P_\theta(X_{(n)}\leq c) = \left(\frac{c}{\theta}\right)^n = \alpha\left(\frac{\theta_0}{\theta}\right)^n$\\
+$P_\theta(X_1,\dots,X_n\in R) = \int_{[0,\theta]^n}{I(X_1,\dots,X_n\in R)\frac{1}{\theta^n}dX_1\dots dX_n} =$ \\$  \frac{1}{\theta^n}\left(\frac{\theta_0}{\theta}\right)^n\int_{[0;\theta]^n}{I(X_1,\dots,X_n\in R)dX_1\dots dX_n} \leq \left(\frac{\theta_0}{\theta}\right)^n\int_{[0,\theta_0]^n}{\frac{1}{\theta_0^n}I((x_1,\dots,x_n)\in R)dx_1\dots dx_n}$\\
+$= \left(\frac{\theta_0}{\theta}\right)^nP_{\theta_0}((X_1,\dots,X_n)\in R) 
+\leq \alpha\left(\frac{\theta_0}{\theta}\right)^n = P_\theta(X_{(n)}\leq c)$\\
+
+ 
+\end{document}

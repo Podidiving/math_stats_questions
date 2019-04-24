@@ -1,0 +1,61 @@
+	\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{математическая статистика. Билеты}
+\author{alexander.veselyev }
+\date{\today}
+
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc} % указывает кодировку документа
+\usepackage[T2A]{fontenc} % указывает внутреннюю кодировку TeX 
+\usepackage[russian]{babel} % указывает язык документа
+
+\usepackage{amsmath}
+
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+
+
+\begin{document}
+\section{Теорема об экспоненциальном семействе.}
+\textbf{Теорема}\\
+Пусть X - наблюдение с распределением $P\in\mathcal{P}=\{P_\theta:\ \theta\in\Theta\subset\mathbb{R}^k\}$\\
+$p_\theta(x) = h(x)exp(\sum_{i=1}^k{a_i(\theta)S_i(x)} + b(\theta))$\\
+Тогда $(S_1(X),\dots,S_k(X))$ - полная достаточная статистика, если\\ $(a_1,\dots,a_k)(\Theta) \supset$ k-мерный параллелепипед.\\
+$\blacktriangleleft$\\
+Функция правдоподобия: \\$f_\theta(X_1,\dots,X_n) = h(X_1)\dots h(X_n)exp(\sum_{i=1}^n{\langle a(\theta), S(X_i)\rangle} + nb(\theta))$\\
+$\Rightarrow$ достаточность следует из критерия Неймана-Фишера\\
+Докажем полноту.\\
+$\varphi = \varphi^+ - \varphi^-$
+$$\mathbf{E}_\theta\varphi(S(X)) = \int_{\mathbb{R}^n}\varphi(S(x))h(x_1)\dots h(x_n)exp(\langle a(\theta), S(x)\rangle + nb(\theta))dP_\theta = 0$$
+(обозначим $H(X) = h(x_1)\dots h(x_n)$)\\
+$\Rightarrow$
+$$ \int_{\mathbb{R}^n}{\varphi^+(S(x))H(x)exp(\langle a(\theta), S(x)\rangle)dP_\theta} = \int_{\mathbb{R}^n}{\varphi^-(S(x))H(x)exp(\langle a(\theta), S(x)\rangle)dP_\theta}  $$
+Определим меру $\nu$ на $\mathbb{R}^k$: $\forall B \in \mathcal{B}(\mathbb{R}^k):$\\
+$\nu(B) = \int_{x: S(x)\in B}{H(x)dP_\theta} $\\
+Эта мера будет $\sigma$-конечной\\
+\textit{Напоминание} $\sigma$-конечная мера --- такая мера, что все пространство может быть представлено в виде счетного объединения измеримых множеств конечной меры.\\
+$$ \int_{\mathbb{R}^k}{\varphi^+(S)exp(\langle a(\theta), S \rangle)d\nu}  \int_{\mathbb{R}^k}{\varphi^-(S)exp(\langle a(\theta), S \rangle)d\nu}$$
+(т.е. мы сделали замену переменных в интеграле Лебега)\\
+\textbf{Лемма}(б/д)\\
+Пусть $\mu_1,\ \mu_2$ - $\sigma$-конечные меры на $\mathcal{B}(\mathbb{R}^k)$ и $\forall a$ из некоторого $k$-мерного параллелепипеда:
+$$ \int_{\mathbb{R}^k}{exp(\langle a, s  \rangle)d\mu_1} = \int_{\mathbb{R}^k}{exp(\langle a, s  \rangle)d\mu_2} $$
+Тогда $\mu_1 = \mu_2$\\
+(Продолжение док-ва)\\
+Пусть $\nu^+(B) = \int_B{\varphi^+(S)d\nu}$, $\nu^-(B) = \int_B{\varphi^-(S)d\nu}$\\
+Эти меры, опять же, $\sigma$-конечные. Т.е. имеем:
+$$ \int_{\mathbb{R}^k}{exp(\langle a(\theta), s  \rangle)d\nu^+} = \int_{\mathbb{R}^k}{exp(\langle a(\theta), s  \rangle)d\nu^-}$$
+$\Rightarrow$\\
+$\nu^+ = \nu^-$ $\Rightarrow$ $\varphi^+ = \varphi^-$ $\nu$-почти всюду\\
+$$ 0 = \int_{S: \varphi^+(S) \neq \varphi^-(S)}{d\nu} = \nu(\{ S:\ \varphi^+(S)\neq\varphi^-(S)  \}) = \int_{x: \varphi^+(S(x))\neq\varphi^-(S(x))}{H(x)dP_\theta}$$
+$H(x)>0$ (Если $H(x) = 0$, то изначально вместо $\mathbb{R}^n$ можно будет взять другой носитель)\\
+$\Rightarrow$
+$$ \int_{x: \varphi^+(S(x))\neq\varphi^-(S(x))}{dP_\theta} = 0 $$
+$\Rightarrow$
+$$ P_\theta(S: \varphi^+(S) \neq \varphi^-(S)) = 0\ \ \forall\theta\in\Theta $$
+$\Rightarrow\ \ \varphi = 0$ $P_\theta$ п.н. $\forall\theta\in\Theta$ $\Rightarrow$ $S(X)$ - полная\\
+$\blacktriangleright$\\
+
+\end{document}

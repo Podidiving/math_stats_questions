@@ -1,0 +1,124 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{математическая статистика. Билеты}
+\author{alexander.veselyev }
+\date{\today}
+
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc} % указывает кодировку документа
+\usepackage[T2A]{fontenc} % указывает внутреннюю кодировку TeX 
+\usepackage[russian]{babel} % указывает язык документа
+
+\usepackage{amsmath}
+
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+\begin{document}
+
+\section{Распределения Стьюдента и Фишера. Доверительные интервалы для параметров гауссовской линейной модели. Доверительная область для оценки МНК. Пример нахождения доверительных интервалов для параметров нормального распределенияпо выборке.}
+
+\textbf{Определение} Пусть $\xi\sim\mathcal{N}(0,1)$, $\eta\sim\chi^2_k$ $\xi$ и $\eta$ независимы $\Rightarrow$ $\frac{\xi}{\sqrt{\frac{\eta}{k}}}\sim St(k)$ - \textbf{Распределение Стьюдента}\\
+
+\textbf{Определение} Пусть $\xi\sim\chi^2_k$, $\eta\sim\chi^2_r$, $\xi$ и $\eta$ независимы $\Rightarrow$ $$\frac{\xi\backslash k}{\eta\backslash r}\sim F_{k,r}$$ - 
+\textbf{Распределение Фишера}\\
+
+\textbf{ДИ для $\sigma^2$}\\
+
+$$\frac{1}{\sigma^2}\|X-Z\widehat{\theta}\|^2=\frac{1}{\sigma^2}\|proj_{L^\perp}X\|^2\sim\chi^2_{n-k}$$
+
+Распределение $\chi^2_{n-k}$ не зависит от $\sigma^2$ $\Rightarrow$ центральная статистика\\
+
+Пусть $z_{1-\gamma}$ - $1-\gamma$ квантиль $\chi^2_{n-k}$
+
+$$P_{\theta,\sigma^2}\left( \frac{1}{\sigma^2}\|X-Z\widehat{\theta}\|^2 > z_{1-\gamma} \right) = \gamma$$
+
+$$P_{\theta, \sigma^2}\left( 0\leq\sigma^2\leq\frac{\|X-Z\theta\|^2}{z_{1-\gamma}} \right) = \gamma$$
+
+\textbf{ДИ для $\theta_i$}\\
+
+$\widehat{\theta}$ --- гауссовский вектор (как линейное преобразование X - гауссовского вектора)\\
+
+$$\widehat{\theta}\sim\mathcal{N}(\theta,\sigma^2(Z^TZ)^{-1})$$
+
+Пусть $A = (Z^TZ)^{-1}$ $\Rightarrow$ $\widehat{\theta}_i\sim\mathcal{N}(\theta_i, \sigma^2A_{ii})$\\
+
+$\Rightarrow$
+
+$$ \frac{\widehat{\theta}_i - \theta_i}{\sigma\sqrt{A_{ii}}}\sim\mathcal{N}(0,1) $$
+
+Далее, $\widehat{\sigma^2} = \frac{1}{n-k}\|X-Z\widehat{\theta}\|^2$ - оптимальная оценка $\sigma^2$
+и $\widehat{\sigma^2}\sim\chi^2_{n-k}$\\
+
+$\Rightarrow$
+
+$$\frac{\widehat{\theta}_i - \theta_i}{\sqrt{A_{ii}\frac{1}{n-k}\|X - Z\widehat{\theta}\|^2}}\sim St(n-k)$$
+
+$St(n-k)$ - центральная статистика\\
+
+$t_{1\frac{\gamma}{2}}$ - $1-\frac{\gamma}{2}$ квантиль для $St(n-k)$. Тогда ДИ для $\theta_i$ уровня $\gamma$
+
+$$ \left(\widehat{\theta}_i - t_{1-\frac{\gamma}{2}}\sqrt{\widehat{\sigma^2}A_{ii}}, \widehat{\theta}_i + t_{1-\frac{\gamma}{2}}\sqrt{\widehat{\sigma^2}A_{ii}}   \right)  $$
+
+\textbf{Доверительная область для $\theta$}\\
+
+Из теоремы об ортогональном разложении гауссовского вектора:\\
+
+$\frac{1}{\sigma^2}\|X - Z\widehat{\theta}\|^2\sim\chi^2_{n-k}$, $\frac{1}{\sigma^2}\|Z\widehat{\theta} - Z\theta\|^2\sim\chi^2_k$\\
+
+$\Rightarrow$
+
+$$ \frac{\|Z\widehat{\theta} - Z\theta\|^2}{\|X-Z\widehat{\theta}\|^2}\frac{n-k}{k}\sim F_{k,n-k}$$
+
+$F_{k, n-k}$ - центральная статистика\\
+
+$u_\gamma$ - $\gamma$-квантиль распределения $F_{k, n-k}$, тогда
+
+$$S(X) = \{\theta:\  \frac{\|Z\widehat{\theta} - Z\theta\|^2}{\|X-Z\widehat{\theta}\|^2}\frac{n-k}{k} < u_\gamma\}$$
+
+доверительная область уровня $\gamma$ для $\theta$\\
+
+\textbf{Пример с нормальным распределением}\\
+
+$X_1,\dots,X_n\sim\mathcal{N}(a,\sigma^2)$\\
+
+$X = (X_1,\dots,X_n)^T = (a,\dots,a)^T + \varepsilon^T$, где $\varepsilon\sim\mathcal{N}(0, \sigma^2I_n)$\\
+
+(В этом случае k=1 и $Z = (1,\dots,1)^T$)\\
+
+$$\frac{1}{\sigma^2}\|X - Z\widehat{\theta}\|^2\sim\chi^2_{n-1}$$
+
+$$\widehat{\theta} = (Z^TZ)^{-1}Z^TX = \overline{X}$$
+
+($(Z^TZ)^{-1} = \frac{1}{n}$, $Z^TX = \sum{X_i}$)\\
+
+$$\|X - Z\widehat{\theta}\|^2 = \sum_{i=1}^n{(X_i-\overline{X})^2}$$
+
+Пусть $u_{1-\gamma}$ - $1-\gamma$ квантиль для $\chi^2_{n-1}$
+
+$$ P_{\theta,\sigma^2}\left( \frac{\sum_{i=1}^n{(X_i-\overline{X})^2}}{\sigma^2} > u_{1-\gamma}\right) = \gamma $$
+
+$0 < \sigma^2 < \frac{\sum_{i=1}^n{(X_i-\overline{X})^2}}{u_{1-\gamma}}$ - доверительный интервал уровня $\gamma$\\
+
+Далее
+
+$$\widehat{\theta}\sim\mathcal{N}(\theta,\sigma^2(Z^TZ)^{-1})$$
+
+Уже получили, что $\overline{X}\sim\mathcal{N}\left(a, \frac{\sigma^2}{n}\right)\ \Rightarrow\ 
+\frac{\sqrt{n}(\overline{X} -a)}{\sqrt{\sigma^2}}\sim\mathcal{N}(0,1)$\\
+
+$\widehat{\theta} = \overline{X} \sim \mathcal{N}(0,1)$ и $\frac{1}{\sigma^2}\|X - Z\widehat{\theta}\|^2 = \frac{1}{\sigma^2}\sum(X_i-\overline{X})^2 \sim\chi^2_{n-1}$ независимы\\
+$\Rightarrow$
+
+$$\frac{\frac{\sqrt{n}(\overline{X} -a)}{\sqrt{\sigma^2}}}{\sqrt{ \frac{1}{\sigma^2}\sum(X_i-\overline{X})^2 \frac{1}{n-1} }} = \sqrt{\frac{n(n-1)}{\sum(X_i-\overline{X})^2}}\left( \overline{X} - a \right)\sim St(n-1)$$
+
+
+Пусть $z_\gamma$ - $\gamma$-квантиль $St(n-1)$ Тогда
+
+$$ P_{\theta,\sigma^2}\left( \overline{X} - z_{1 + \frac{\gamma}{2}}\sqrt{s^2} < a < \overline{X} + z_{1 + \frac{\gamma}{2}}\sqrt{s^2}    \right) = \gamma $$
+
+$s^2$ - выборочная дисперсия\\
+
+\end{document}

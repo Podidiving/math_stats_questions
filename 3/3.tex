@@ -1,0 +1,71 @@
+\documentclass[25pt]{article}
+\usepackage[utf8]{inputenc}
+
+\title{математическая статистика. Билеты}
+\author{alexander.veselyev }
+\date{\today}
+
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc} % указывает кодировку документа
+\usepackage[T2A]{fontenc} % указывает внутреннюю кодировку TeX 
+\usepackage[russian]{babel} % указывает язык документа
+
+\usepackage{amsmath}
+
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+\newcommand\independent{\protect\mathpalette{\protect\independenT}{\perp}}
+\def\independenT#1#2{\mathrel{\rlap{$#1#2$}\mkern2mu{#1#2}}}
+
+
+\usepackage{color}   %May be necessary if you want to color links
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true, %set true if you want colored links
+    linktoc=all,     %set to all if you want both sections and subsections linked
+    linkcolor=blue,  %choose some color if you want links to stand out
+}
+
+\begin{document}
+
+
+\section{Непараметрическая задача. Эмпирическое распределение и эмпирическая функция
+распределения. Теорема Гливенко-Кантелли.}
+
+\textbf{Определение} Пусть $X_1,\dots,X_n$ - выборка, $B \in \mathcal{B}(\mathbb{R})$\\
+\textbf{эмпирическое распределение}: $$P_n^*(B) = \frac{\sum_{i=1}^n I(X_i \in B)}{n}$$
+По УЗБЧ: $P_n^*(B) \xrightarrow{\text{п.н.}} P(B)$\\
+А значит, \textbf{эмпирическая функция распределения}\\ $F_n^*(x) = P_n^*((-\infty, x]) \xrightarrow{\text{п.н.}} F(x)$ (теорема Гливенко)\\
+\\
+\textbf{Теорема}(Гливенко-Кантелли)\\
+Пусть $X_1,\dots,X_n$ - выборка с функцией распределения $F(x)$\\
+Определим $D_n = \sup_{x\in \mathbb{R}}|F_n^*(x) - F(x)|$\\
+Тогда $D_n \xrightarrow{\text{п.н.}} 0$
+\\
+$\blacktriangle$
+\\
+$F_n^*(x,\omega)$ - функция распределения $\Rightarrow$ непрерыная справа $\Rightarrow$ функция $\forall \omega\ |F_n^*(x,\omega) - F(x)|$ непрерывна справа $\Rightarrow$ в $D_n$ супремум можно брать не по всем действительным точкам, а по всем рациональным (потому что действительные точки можем приблизить рациональными) $\Rightarrow$
+$$D_n = \sup_{x\in\mathbb{Q}}|F_n^*(x,\omega) - F(x)|$$
+является случайной величиной, как супремум счетного числа случайных величин.\\
+Фиксируем $N \in \mathbb{N}$, положим $\forall k = \overline{1,N-1}$:\\
+$x_k = \inf\{x\in\mathbb{R}:\ F(x) \geq \frac{k}{N}\}$ (такая величина называется квантиль)\\
+$x_0 := -\infty$, $x_N = +\infty$\\
+Пусть $x \in [x_k, x_{k+1})$, тогда\\
+$$ F_n^*(x,\omega) - F(x) \leq F_n^*(x_{k+1} - 0) - F(x_k) = (F_n^*(x_{k+1} - 0) - F(x_{k+1} - 0)) + ( F(x_{k+1} - 0) - F(x_k)) $$
+во второй скобке уменьшаемое $\leq \frac{k + 1}{N}$, а вычитаемое $\geq \frac{k}{N}$, значит разность $\leq \frac{1}{N}$\\
+$\Rightarrow$
+$$F_n^*(x,\omega) - F(x) \leq F_n^*(x_{k+1} - 0) - F(x_{k+1} - 0) + \frac{1}{N}$$
+Аналогично
+$$ F_n^*(x,\omega) - F(x) \geq F_n^*(x_{k}) - F(x_{k}) - \frac{1}{N} $$
+Значит
+$$ \forall x \in \mathbb{R}\ |F_n^*(x,\omega) - F(x)| \leq \max_{0\leq k \leq N-1, 0 \leq l \leq N-1}\{ |F_n^*(x_{k}) - F(x_{k})| + |F_n^*(x_{l+1} - 0) - F(x_{l+1} - 0)|\} + \frac{1}{N} $$
+\\
+ввиду сходимости эмпирической ф.р к истинной п.н. каждый член $|F_n^*(x_{k}) - F(x_{k})| + |F_n^*(x_{l+1} - 0) - F(x_{l+1} - 0)|$ стремится к нулю. Соответственно, $\forall \varepsilon > 0$ выберем такое $N$, что $\frac{1}{N} < \varepsilon$\\
+Это и будет означать, что $D_n \xrightarrow{\text{п.н.}} 0$\\
+$\blacktriangle$
+\\
+
+
+\end{document}

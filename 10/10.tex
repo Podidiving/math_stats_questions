@@ -1,0 +1,101 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{математическая статистика. Билеты}
+\author{alexander.veselyev }
+\date{\today}
+
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc} % указывает кодировку документа
+\usepackage[T2A]{fontenc} % указывает внутреннюю кодировку TeX 
+\usepackage[russian]{babel} % указывает язык документа
+
+\usepackage{amsmath}
+
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+\begin{document}
+\section{Баейсовские оценки: определение, типы байесовских оценок, наилучшая оценка в
+байесовском подходе, сопряженные распределения, примеры.}
+\textbf{Напоминание} (теорема Байеса)\\
+Пусть $(\Omega, \mathcal{F}, P)$ - вероятностное пространство, $\{D_n\}_{n=1}^\infty$ - разбиение $\Omega$. $A\in\mathcal{F}$ - событие. Тогда 
+$$ P(D_n|A) = \frac{P(A|D_n)P(D_n)}{\sum_{j=1}^\infty{P(A|D_j)P(D_j)}}$$
+
+\textbf{Терминология}\\
+1) $A$ - произошедшее событие, является результатом эксперимента.\\
+2) $P(D_n)$ - априорная вероятность, задается до эксперимента.\\
+3) $P(D_n|A)$ - апостериорная вероятность, учитывает рещультат эксперимента.\\
+\textbf{Теорема} (Байеса, в общем случае)\\
+Пусть $\xi,\ \eta$ - случайные вектора размерности $n$ и $m$ соответственно\\
+$$ P_{\eta|\xi}(y|x) = \frac{p_{\xi|\eta}(x|y)p_\eta(y)}{\int_{\mathbb{R}^m}p_{\xi|\eta}(x|s)p_\eta(s)ds} $$
+\textit{Основы байесовского подхода}\\
+Пусть $\theta$ - случайный вектор со значениями из множества $\Theta\subset\mathbb{R}^d$, имеющий распределение $Q$ с плотностью $q(t)$, которая называется \textbf{априорной}\\
+Пусть $X = (X_1,\dots,X_n)$ - выборка из неизвестного распределения $P\in\{P_t,\ t\in\Theta\}$\\
+Причем $P_t$ имеет плотность $p_t(x)$\\
+Зависимость $Q$ и $X$ определим через плотность вектора $(Q,X)$\\
+$$ f(t,x_1,\dots,x_n) = q(t)p_t(x_1)\dots p_t(x_n)$$
+$t$ - значение $\theta$\\
+$x_1$ - значение $X_1$\\
+$\dots$\\
+$x_n$ - значение $X_n$\\
+\textbf{Реализация модели}\\
+1) Генерируем значение $\theta$ из распределения $Q$ и получаем число $t$\\
+2) Генерируем выборку из распределения $P_t$\\
+3) Способы оценки параметра:
+\begin{enumerate}
+\item Апостериорное распределение
+$$ q(t|x_1,\dots,x_n) = \frac{q(t)p_t(x_1)\dots p_t(x_n)}{\int_\Theta q(t)p_t(x_1)\dots p_t(x_n)dt} $$
+\item Точные оценки параметров
+\begin{enumerate}
+\item $$ \mathbf{E}(\theta|X) = \int_\Theta t q(t|X_1,\dots,X_n)dt $$
+\item $\arg\max_{t\in\Theta}q(t|x_1,\dots,x_n) $ - мода апостериорного распределения.
+\item медиана апостериорного распределения. 
+\end{enumerate}
+
+\end{enumerate}
+\textbf{Задача} $X_1,\dots,X_n\sim \mathcal{U}[0;\theta+1]$, причем $\forall i:\ X_i\leq 2$\\
+$\theta\sim Bern(\frac{1}{2	})$. Найти апостериорное распределение.\\
+$\blacktriangleleft$
+\\
+$p_t(x) = \frac{1}{t + 1}I(x\leq t + 1)$\\
+$q(t) = \frac{1}{2}$, $t\in\{0,1\}$\\
+$q(0|X) =  \frac{1}{z}q(0)p_0(x_1)\dots p_0(x_n) = \frac{1}{z}\frac{1}{2}I(X_{(n)} \leq 1)$\\
+$q(1|X) = \frac{1}{z}q(1)p_1(x_1)\dots p_1(x_n) = \frac{1}{z} \left(\frac{1}{2}\right)^{n+1}$\\
+Здесь везде $z = \frac{1}{2	}I(X_{(n)}\leq 1) + \frac{1}{2^{n+1}}$\\
+$\blacktriangleright$\\
+\textit{Байесовский подход к сравнению оценок}\\
+$\theta^*_1$ \textbf{не хуже} $\theta^*_2$, если $\mathbf{E}_QR_{\theta^*_1}(\theta) \leq \mathbf{E}_QR_{\theta^*_2}(\theta)$\\
+\textbf{Теорема}\\
+Байесовская оценка $\widehat{\theta} = \mathbf{E}(\theta|X)$ является наилучшей оценкой в байесовском подходе с квадратичной функцией потерь.\\
+$\blacktriangleleft$
+\\
+$R_{\widehat{\theta}}(\theta) = MSE_{\widehat{\theta}}(\theta) = \mathbf{E}_\theta(\widehat{\theta}-\theta)^2$\\
+Пусть $\theta^*$ - произвольная оценка $\theta$\\
+$\mathbf{E}_QMSE_{\theta^*}(\theta) =
+\int_\Theta{MSE_{\theta^*}(t)q(t)dt} = \int_\Theta{\mathbf{E}_t(\theta^* - t)^2q(t)dt} = $\\$
+\int_\Theta{\left(\ \int_{\mathcal{X}}{(\theta^*(x) - t)^2p_t(x)dx} \right)q(t)dt} = $
+$ \int_\Theta\int_\mathcal{X}(\theta^*(x) - t)^2f(t,x)dtdx = $\\ ($f(t,x)$ - совместная плотность) $ = \mathbf{E}(\theta^* - \theta)^2 \rightarrow \min $ \\(минимизируем по $\theta^*$) $\Rightarrow$ минимум достигается на $\widehat{\theta}$ по теореме о наилучшем приближении\\ 
+$\blacktriangleright$
+\\
+\textbf{Определение} Пусть $X = (X_1,\dots,X_n)$ - выборка из распределения $P\in\mathcal{P}$, где $\mathcal{P} = \{P_t,\ t\in\Theta\}$ - некоторое семейство распределений. Пусть на множестве $\Theta$ задано семейство распределений $\mathcal{Q} = \{Q_\alpha,\ \alpha\in\mathcal{A} \}$\\
+Семейство $\mathcal{Q}$ называется \textbf{сопряженным} к семейству $\mathcal{P}$, если при взятии априорного из $\mathcal{Q}$ соответсвующее апостериорное тоже лежит в $\mathcal{Q}$\\
+т.е., если $X\sim P_t$, $\theta\sim Q_\alpha$, то $\theta|X \sim Q_\alpha$\\
+\textbf{Задача}\\
+$X_1,\dots,X_n \sim Exp(\theta)$. Найти сопряженное распределение, найти байесовскую оценку.\\
+$\blacktriangleleft$
+\\
+Плотность выборки $p_t(x_1,\dots,x_n) = \prod_{i=1}^n{te^{-tx_i}} = t^ne^{-t\sum{x_1}}$\\
+Берем $q(t)$ пропорционально этому выражению\\
+$ q(t)\propto t^{\beta-1}e^{-\alpha t} $  - это $\Gamma(\alpha,\beta)$\\
+Соответственно $q(t) = \frac{\alpha^\beta t^{\beta-1}e^{-\alpha t}}{\Gamma(\beta)}$	\\
+Покажем, что $\Gamma(\alpha,\beta)$ - сопряжение к $Exp(\theta)$, для этого найдем апостериорное распределение.\\
+$q(t|X) \propto q(t)p_t(x_1)\dots p_t(x_n) \propto t^{\beta-1}e^{-\alpha t}t^ne^{-t\sum x_i}$ 
+$ = t^{n + \beta -1} e^{-t(\alpha + \sum x_i)}$
+- это $\Gamma(\alpha + \sum x_i, n + \beta)$\\
+$\Rightarrow$ $\Gamma(\alpha,\beta)$ - сопряженное к $Exp(\theta)$\\
+Кроме того, $\Gamma(\alpha + \sum{x_i}, n + \beta)$ - апостериорное распределение\\
+$\mathbf{E}(\theta|X) = \frac{n + \beta}{\alpha + \sum{x_i}}$\\
+$\blacktriangleright$
+\end{document}

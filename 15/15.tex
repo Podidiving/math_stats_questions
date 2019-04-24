@@ -1,0 +1,83 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{математическая статистика. Билеты}
+\author{alexander.veselyev }
+\date{\today}
+
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc} % указывает кодировку документа
+\usepackage[T2A]{fontenc} % указывает внутреннюю кодировку TeX 
+\usepackage[russian]{babel} % указывает язык документа
+
+\usepackage{amsmath}
+
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+\begin{document}
+\section{Задача линейной регрессии. Метод наименьших квадратов. Несмещенность оценки по методу наименьших квадратов. Матрица ковариаций оценки по методу наименьших квадратов. Оценка дисперсии. Свойства оценки по методу наименьших квадратов.}
+
+Пусть $X\in\mathbb{R}^n$ - наблюдение, которое представляется в виде $X = l + \varepsilon$, где $l$ - неслучайный вектор (измеримая величина), $\varepsilon$ - случайный вектор (ошибка измерений)\\
+Про $\varepsilon$ известно, что $\mathbf{E}\varepsilon = 0\ \ \ \mathbf{D}\varepsilon = \sigma^2I_n,$
+$\sigma^2$ неизвестно.\\
+Про $l$ известно, что $l\in L$, $L$ - линейное подпространство $\mathbb{R}^n$, $dim(L) = k < n$, $L$ известно.\\
+\textit{Задача} оценить $l$ и $\sigma^2$\\
+Пусть $z_1,\dots,z_k$ - базис в $L$ (вектор-столбцы)\\
+$Z = (z_1\dots z_k)$ - матрица $n\times k$\\
+Тогда $l = \sum_{i=1}^k{\theta_iz_i}$ $\theta_i$ - неизвестные координаты вектора $l$ в базисе $(z_1,\dots,z_k)$\\
+Перейдем к оценке $(\theta,\sigma^2)$\\
+\textbf{Метод наименьших квадратов}\\
+\textbf{Определение} $\widehat{\theta}(X) = \arg\min_\theta \|X - Z\theta\|^2$ - оценка МНК параметра $\theta$ (минимальное растояние на $Z\theta = proj_LX$\\
+\textbf{Лемма}\\
+$\widehat{\theta} = (Z^TZ)^{-1}Z^TX$\\
+$\blacktriangleleft$
+\\
+$$ \|X-Z\theta\|^2 = (X-Z\theta)^T(X-Z\theta) = X^TX - 2X^TZ\theta + \theta^TZ^TZ\theta$$
+Берем производную по $\theta_i$:
+$$ -2(X^TZ)_i + 2(\theta^TZ^TZ)_i = 0 $$
+$$ \Rightarrow -X^TZ + \theta^TZ^TZ = 0 \Rightarrow Z^TZ\theta = Z^TX \Rightarrow \theta = (Z^TZ)^{-1}Z^TX $$
+$\blacktriangleright$\\
+\textbf{Утверждение}\\
+$\mathbf{E}\widehat{\theta} = \theta$\\
+$\blacktriangleleft$\\
+$\mathbf{E}X = Z\theta$ по линейности\\
+из предыдущей леммы:\\ $\mathbf{E}\widehat{\theta} = \mathbf{E}(Z^TZ)^{-1}Z^TX = (Z^TZ)^{-1}Z^T\mathbf{E}X = (Z^TZ)^{-1}Z^TZ\theta = \theta$\\
+$\blacktriangleright$\\
+\textbf{Утверждение}\\
+$\mathbf{D}\widehat{\theta} = \sigma^2(Z^TZ)^{-1}$\\
+$\blacktriangleleft$\\
+$\mathbf{D}X = \sigma^2I_n$, $I_n$ - единичная матрица\\
+Получим:\\
+$\mathbf{D}\widehat{\theta} = \mathbf{D}(Z^TZ)^{-1}Z^TX = (Z^TZ)^{-1}Z^T\mathbf{D}X[(Z^TZ)^{-1}Z^T]^T$\\ $= (Z^TZ)^{-1}Z^T\sigma^2I_n[(Z^TZ)^{-1}Z^T]^T = \sigma^2I_n(Z^TZ)^{-1} = \sigma^2(Z^TZ)^{-1}$\\
+$\blacktriangleright$
+\textbf{Теорема}(б/д)\\
+Пусть $t = T\theta$, $T$ - матрица $(m\times k)$.\\
+Тогда $\widehat{t} = T\widehat{\theta}$ является оптимальной оценкой параметра $t$ в классе линейных
+несмещенных оценок (т.е. оценок вида $B\overline{X}$, $B$ - матрица)\\
+\textbf{Лемма}\\
+$\mathbf{E}\|X - Z\widehat{\theta}\|^2 = \sigma^2(n - k)$\\
+$\blacktriangleleft$\\
+т.к. $\mathbf{E}(X - Z\theta) = 0$, то\\
+$\mathbf{E}\|X - Z\widehat{\theta}\|^2 = \sum_{i=1}^n{\mathbf{E}(X - Z\widehat{\theta})^2_i} = 
+\sum_{i=1}^n{\mathbf{D}(X - Z\widehat{\theta})_i} = \mathbf{tr}\mathbf{D}(X - Z\theta)$\\
+$\mathbf{D}(X - Z\widehat{\theta}) = \mathbf{D}((I_n - Z(Z^TZ)^{-1}Z^T)X)$\\
+Обозначим $A = Z(Z^TZ)^{-1}Z^T$\\
+Заметим, что $A^T = A$,\ $A^2 = A$\\
+$\mathbf{D}(X - Z\widehat{\theta}) = (I_n - A)\mathbf{D}X(I_n - A) = \sigma^2(I_n - A)^2 = 
+\sigma^2(I_n - 2I_nA + A^2) = \sigma^2(I_n - A)$\\
+$\mathbf{tr}(AB) = \mathbf{tr}(BA)$ (напоминание из лин. алгебры)\\
+$\Rightarrow\ \mathbf{E}\|X-Z\widehat{\theta}\|^2 = \sigma\mathbf{tr}(I_n - A) =
+\sigma^2(n - \mathbf{tr}(Z(Z^TZ)^{-1}Z^T)) = \sigma^2(n - \mathbf{tr}(Z^TZ(Z^TZ)^{-1})) =
+\sigma^2(n - k)$\\
+$\blacktriangleright$\\
+\textbf{Следствие}\\
+$\frac{1}{n - k}\mathbf{E}\|X-Z\widehat{\theta}\|^2$ - несмещенная оценка параметра $\sigma^2$\\
+\textbf{Замечание}\\
+(тут T - анулятор)\\
+$X - Z\widehat{\theta} = proj_{L^T}X$\\
+$\blacktriangleleft$\\
+$X = proj_LX + proj_{L^T}X = Z\widehat{\theta} + proj_{L^T}X$\\
+$\blacktriangleright$\\
+\end{document}

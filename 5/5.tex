@@ -1,0 +1,108 @@
+\documentclass[25pt]{article}
+\usepackage[utf8]{inputenc}
+
+\title{математическая статистика. Билеты}
+\author{alexander.veselyev }
+\date{\today}
+
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc} % указывает кодировку документа
+\usepackage[T2A]{fontenc} % указывает внутреннюю кодировку TeX 
+\usepackage[russian]{babel} % указывает язык документа
+
+\usepackage{amsmath}
+
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+\newcommand\independent{\protect\mathpalette{\protect\independenT}{\perp}}
+\def\independenT#1#2{\mathrel{\rlap{$#1#2$}\mkern2mu{#1#2}}}
+
+
+\usepackage{color}   %May be necessary if you want to color links
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true, %set true if you want colored links
+    linktoc=all,     %set to all if you want both sections and subsections linked
+    linkcolor=blue,  %choose some color if you want links to stand out
+}
+
+\begin{document}
+
+
+\section{Методы нахождения оценок: метод подстановки, метод моментов и метод 
+максимального правдоподобия. Примеры. Состоятельность и асимптотическая нормальность
+оценки по методу моментов. Функция плотности в дискретном случае.}
+
+\textbf{Метод подстановки}
+\\
+Пусть $\mathcal{P} = \{ P_\theta,\ \theta \in \Theta \}$ таково, что для некоторого функционала $G$ 
+выполнено $\forall \theta \in \Theta \ G(P_\theta) = \theta$\\
+Тогда оценка $\theta$ по методу подстановки называется $\theta^*(X_1,\dots,X_n) = G(P_n^*)$, где
+$P_n^*$ - эмпирическое распределение, построенное по выборке $X_1,\dots,X_n$\\
+\textbf{Пример}\\
+1)$\mathcal{P} = \{\mathcal{N}(\theta, 1), \theta \in \mathbb{R}\}$, функционал - математическое ожидание. 
+$\textbf{E}(P_\theta) = \theta$
+$$\textbf{E}(P_n^*) = \int_\mathbb{R}{x dP_n^*} = \int_\mathbb{R}{x d F_n^*} = \sum_{i=1}^n{X_i}\frac{1}{n} = \overline{X}$$
+\\
+2) Пусть $\mathcal{P} = \{exp(\theta),\  \theta > 0\}$ \\
+$F_\theta(x) = 1 - e^{\theta x}I\{x\geq0\}$\\
+Тогда $G(F_\theta(x)) = -\ln(1 - F_\theta(1))$ т.ч. $\forall \theta \in \Theta$: $G(F_\theta(x)) = \theta$\\
+Пусть $P_n^*$ - эмпирическое распределение, тогда $G(P_n^*)$ - оценка $\theta$ методом подстановки:
+$$G(P_n^*) = -\ln(1 - \frac{\sum_{i=1}^n I(X_i\leq1)}{n})$$
+\\ \\
+\textbf{Метод моментов}
+\\
+Пусть $X_1,\dots,X_n$ - выборка из неизвестного распределения $P \in \{P_\theta,\ \theta \in \Theta\},\ \Theta \subset \mathbb{R}^k$\\
+Пусть борелевские функции $g_1(x),\dots,g_k(x)$ таковы, что набор значений\\
+$m(\theta) = (m_1(\theta),\dots,m_k(\theta)) = (\textbf{E}_\theta g_1(X_1),\dots,\textbf{E}_\theta g_k(X_1))$ однозначно определяют параметр $\theta$\\
+\textbf{Определение} оценка параметра $\theta$ по \textbf{методу моментов} с пробными функциями $g_1(X),\dots,g_k(X)$ называется решение системы уравнений
+\begin{equation*}
+    \begin{cases}
+        m_1(\theta^*) = \overline{g_1(X)}\\
+        \dots\\
+        m_k(\theta^*) = \overline{g_k(X)}\\
+    \end{cases}
+    \text{Относительно } \theta^*
+\end{equation*}
+Иначе говоря $\theta^*(X_1,\dots,X_n) = m^{-1}(\overline{g_1(x)},\dots,\overline{g_k(X)})$\\
+Замечание: на практике обычно используются \textbf{стандартные} пробные функции: $g_i(x) = x^i$\\
+\textbf{Теорема} (состоятельность ОММ)\\
+Пусть $\theta \in \Theta \subset \mathbb{R}^k$. $\theta^*_n = m^{-1}(\overline{g_1(X)},\dots,\overline{g_k(X)})$ - оценка $\theta$ по методу моментов.
+Пусть m биективно. Если $m^{-1}$ непрерывна на множестве $m(\Theta)$ и $\forall i \ \textbf{E}_\theta |g_i(X_1)| < +\infty$, то $\theta^*_n$ - сильно состоятельная оценка параметра $\theta$
+\\
+$\blacktriangle$
+\\
+$\forall i = \overline{1,k}:\ \overline{g_i(X)} = \frac{1}{n}\sum_{m=1}^n g_i(X_m) \xrightarrow{P_\theta \text{п.н.}} \textbf{E}_\theta g_i(X_1) = m_i(\theta)$ (по УЗБЧ)\\
+По теореме о наследовании сходимостей:\\
+$\theta_n^* = m^{-1}(\overline{g_1(X)},\dots,\overline{g_k(X)}) \xrightarrow{P_\theta \text{п.н.}} m^{-1}(m_1(\theta),\dots,m_k(\theta)) = m^{-1}(m(\theta)) = \theta$
+\\
+$\blacktriangle$\\
+\textbf{Теорема} (асимптотическая нормальность)\\
+(k = 1) Если $\forall \theta \in \Theta \ \exists \textbf{E}(g_1(x_1))^2 < \infty$ и $m^{-1}$ 
+дифференцируема, то по теореме о наследовании асимптотической нормальности $\theta_n^*$ - асимптотически нормальная с асимптотической дисперсией 
+$ ( [ m^{-1} \text{'}]\mathbf{E}_\theta g_1(x_1))^2 \mathbf{D}_\theta g_1(x_1)$ 
+\\ \\
+\textbf{Плотность дискретного распределения}\\
+\textbf{Определение} \textbf{Считающей мерой} $\mu$ на $\mathbb{Z}$ называется отображение
+\\$\mu:\ \mathcal{B}(\mathbb{R}) \rightarrow \mathbb{Z}\cup\{+\infty\}$
+Определенное по правилу\\
+$\mu(B) = \sum_{k \in \mathbb{Z}}I(k\in B)$\\
+\textbf{Определение} Интегралом от $f(x)$ по считающей мере называется $\int_\mathbb{R}f(x)\mu(dx) = \sum_{k\in\mathbb{Z}}f(k)$ при условии, что ряд сходится абсолютно\\
+Замечание: такой интеграл обладает всеми свойствами интеграла Лебега (он им и является)\\
+\textbf{Определение} Пусть $\xi$ - дискретная случайная величина на $\mathbb{Z}$ Её \textbf{плотностью} относительно считающей меры $\mu$ называется $p(x) = P(\xi = x),\ x\in\mathbb{Z}$\\
+Корректность определения: $\xi$ - дискретная случайная величина с плотностью $p(x)$ $\Rightarrow$ $\forall g(x)\ \textbf{E}g(\xi) = \int{g(x)p(x)d\mu} = \sum_{k\in\mathbb{Z}}{g(k)P(\xi=k)}$\\
+\textbf{Определение} Пусть $X$ - наблюление с неизвестным распределением $P \in \{P_\theta,\ \theta\in\Theta\}$, причем $\forall \theta \in \Theta$ у $P_\theta$ если плотность $p_\theta$ по одной и той же мере $\mu$ (либо Лебега, либо считающей). В этом случае семейство $\{P_\theta,\ \theta \in \Theta\}$ называется \textbf{доминируемым} относительно меры $\mu$\\
+ \\ 
+\textbf{Метод максимального правдоподобия}
+\\
+\textbf{Определение} Пусть $X$ - наблюдение из неизвестного распределения $P \in \{P_\theta,\ \theta\in\Theta\}$ - семейство распределений, доминируемое относительно меры $\mu$\\
+\textbf{Функцией правдоподобия} $f_\theta(x)$ называется случайная величина $f_\theta(x) = p_\theta(x)$\\
+\\
+\textbf{Пример} если $X = (X_1,\dots,X_n)$ - выборка с плотностью $p_\theta(x)$, то $f_\theta(X) = \prod_{i=1}^n p_\theta(X_i)$\\
+\textbf{Определение} Пусть $X$ - наблюдение с функцией правдоподобия $f_\theta(X)$ \textbf{Оценкой параметра $\theta$ по методу максимального правдоподобия} называется $\theta^* = \arg\max_{\theta\in\Theta}{f_\theta(X)}$\\
+\textbf{Определение} $L_\theta(X) = \ln{f_\theta(X)}$ --- \textbf{логарифмическая функция правдоподобия}
+
+
+\end{document}

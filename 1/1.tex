@@ -1,0 +1,139 @@
+\documentclass[25pt]{article}
+\usepackage[utf8]{inputenc}
+
+\title{математическая статистика. Билеты}
+\author{alexander.veselyev }
+\date{\today}
+
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc} % указывает кодировку документа
+\usepackage[T2A]{fontenc} % указывает внутреннюю кодировку TeX 
+\usepackage[russian]{babel} % указывает язык документа
+
+\usepackage{amsmath}
+
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+\newcommand\independent{\protect\mathpalette{\protect\independenT}{\perp}}
+\def\independenT#1#2{\mathrel{\rlap{$#1#2$}\mkern2mu{#1#2}}}
+
+
+\usepackage{color}   %May be necessary if you want to color links
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true, %set true if you want colored links
+    linktoc=all,     %set to all if you want both sections and subsections linked
+    linkcolor=blue,  %choose some color if you want links to stand out
+}
+
+\begin{document}
+
+\section{Вероятностно-статистическая модель. Наблюдение и выборка. Задача оценивания
+параметров. Статистики и оценки. Свойства оценок: несмещенность, состоятельность, сильная состоятельность, асимптотическая нормальность. Взаимосвязь между
+свойствами оценок. Выборочные характеристики и порядковые статистики. 
+Свойства выборочного среднего.}
+
+\textbf{Напоминание}
+\newline
+\textbf{Определение} \textbf{Алгебра X} - семейство подмножеств $A \subset 2^X$, т.ч.
+\begin{enumerate}
+    \item $\o \in A$
+    \item $x, y \ \in A \Rightarrow \ x \cup y \in A$
+    \item $x \in A \Rightarrow X \backslash x \in A$
+\end{enumerate}
+\textbf{Определение} \textbf{Сигма-алгера} - алгебра, замкнутая относительно счетного объединения
+\newline
+\textbf{Определение} \textbf{Борелевская сигма-алгебра} - минимальная сигма алгебра, содержащая все
+открытые подмножества пространства (также содержит и все замкнутые)\newline
+Один из способов порождения: лучи $(-\infty, x]$
+\newline
+\textbf{Определение} Пусть $(\Omega, \mathcal{F}, P)$ - вероятностное пространство.
+\\ $\xi\ : \Omega \rightarrow \mathbb{R}^n$ --- \textbf{случайный вектор}, если
+$\forall B \in \mathcal{B}(\mathbb{R}^n)\ \xi^{-1}(B) = \{\omega\ : \xi(\omega) \in B\} \in \mathcal{F}$0
+\\
+\textbf{Определение} \textbf{Выборка} $(X_1,\dots,X_n)$ - набор независимых одинаково распределенных величин
+(векторов)
+\\
+\textbf{Определение} Все возможные исходы эксперимента (одного) образуют \textbf{выборочное пространство} $\mathcal{X}$ 
+\\ \\ \\ \\
+\textbf{Определение} \textbf{Вероятностно-статистическая модель} - тройка $(\mathcal{X}, \mathcal{B}_\mathcal{X}, \mathcal{P})$, где
+\begin{enumerate}
+    \item $\mathcal{X}$ - выборочное пространство (как правило $\subset \mathbb{R}^n$)
+    \item $\mathcal{B}_\mathcal{X}$ - борелевская сигма-алгебра на $\mathcal{X}$ 
+    \item $\mathcal{P}$ - семейство распределений на $(\mathcal{X}, \mathcal{B}_\mathcal{X})$
+\end{enumerate}
+
+Положим $X(x) = x$ - \textbf{Наблюдение}
+\begin{enumerate}
+    \item с одной стороны $x \in \mathcal{X}$ - числовая природа
+    \item с другой, x - реализация случайного вектора X
+\end{enumerate}
+Наблюдение - вектор $(\mathcal{X}, \mathcal{B}_\mathcal{X}) \rightarrow (\mathcal{X}, \mathcal{B}_\mathcal{X})$
+\\
+Пусть $P \in \mathcal{P}$, X - случайная величина (вектор) на $(\mathcal{X}, \mathcal{B}_\mathcal{X}, P)$
+\\ $P_X(B) = P(X \in B) = P(x:\ X(x) \in B) = P(x:\ x \in B) = P(B)$
+\\ \\
+Зададим корректно выборку в рамках некой вероятностно-статистической модели \\ 
+
+$(\mathcal{X}^n, \mathcal{B}_\mathcal{X}^n, P^n)$
+\begin{enumerate}
+    \item $\mathcal{X}^n = \mathcal{X}\times\dots\times\mathcal{X}$
+    \item $\mathcal{B}_\mathcal{X}^n = \sigma(\mathcal{B}_1\times\dots\times\mathcal{B}_n, \mathcal{B}_i \in \mathcal{B}_\mathcal{X})$
+    \item $P^n = P_1\bigotimes\dots\bigotimes P_n$ - продолжение прямого произведения мер с полукольца прямоугольников
+\end{enumerate}
+$B = B_1\times\dots\times B_n$ - элемент полукольца \\
+$P^n(B) = \prod_{i=1}^n P(B_i)$ \\
+Тогда $X_i = X(x_1,\dots,x_n) = x_i$ - случайная величина с распределением P, причем $X_1,\dots,X_n$ - независимы \\
+\\
+\\
+\textbf{Определение} Пусть $(\mathcal{X}, \mathcal{B}_\mathcal{X}, \mathcal{P})$ - вероятностно-статистическая модель, X - наблюдение на ней. $(E, \mathcal{E})$ - измеримое пространство
+\\
+Пусть $S : \mathcal{X} \rightarrow E$ - измеримое отображение (прообраз любого измеримого из E множества измерим в $\mathcal{X}$) \\
+Тогда S(X) - \textbf{статистика} от наблюдения X\\ \\
+Бывает так, что $\mathcal{P}$ допускает параметризацию $\mathcal{P} = \{ P_\theta : \theta \in \Theta \},\ \Theta \subset \mathbb{R}^n$\\
+Если S(X) - статистика со значениями в $\Theta$, то S называется \textbf{оценкой} параметра $\theta$ \\
+\\
+\textbf{Свойства оценок}\\
+\\
+Оценка $\theta^*$ называется \textbf{несмещенной} оценкой параметра $\theta$, если $\forall \theta \in \Theta: \ \mathbf{E}_\theta\theta^* = \theta$
+\\
+Оценка $\theta^*$ называется \textbf{состоятельной} (точнее, последовательность оценок) оценкой параметра $\theta$, если $\forall \theta \in \Theta: \ \theta^* \xrightarrow{P_\theta} \theta$
+\\
+Оценка $\theta^*$ называется \textbf{сильно состоятельной} (точнее, последовательность оценок) оценкой параметра $\theta$, если $\forall \theta \in \Theta: \ \theta^* \xrightarrow{P_\theta\ \text{п.н.}} \theta$ 
+\\
+Оценка $\theta^*$ называется \textbf{ассимптотически нормальной} (точнее, последовательность оценок) оценкой параметра $\theta$, если
+\\ $\sqrt{n}(\theta^* - \theta) \xrightarrow{d_\theta} \mathcal{N}(0, \sigma^2(\theta))$
+\\ $\sigma^2(\theta)$ - \textbf{ассимптотическая дисперсия}
+\\
+Пусть $X_1,\dots,X_n$ - выборка с распределением из параметризованного семейства $\mathcal{P}$. 
+Пусть $\textbf{E}_\theta X_1 = \theta \ \forall \theta \in \Theta$
+\\ Тогда оценка $\frac{1}{n}\sum_{i=1}^n X_i$ - является несмещенной (следует из линейности математического ожидания), сильно состоятельной (следует из УЗБЧ) и ассимптотически нормальной (следует из ЦПТ) оценкой параметра $\theta$
+\\ \\
+Заметим, что из сильной состоятельности следует состоятельность (т.к. сходимость п.н. влечет сходимость по вероятности)
+\\ Также, из ассимптотической нормальности следует состоятельность оценки (следует из леммы Слуцкого, примененной к $\xi_n = \sqrt{n}(\theta^* - \theta)$ и $\eta_n = \frac{1}{\sqrt{n}}$, а также того факта, что сходимость по распределению к константе влечет сходимость по вероятности)
+\\ \\
+Пусть g(x) - борелевская функция на $\mathbb{R}$ Тогда 
+$$ \overline{g(X)} = \frac{1}{n}\sum_{i=1}^n g(X_i)$$
+называется \textbf{выборочная характеристика} от функции g
+\\
+Пример выборочной статистики - выборочное среднее.
+\\
+Также, рассматриваются функции от выборочных статистик:
+$$S(X) = h(g_1(X),\dots,g_k(X))$$
+где все функции - борелевские.
+\\
+Пример: выборочная дисперсия $s^2 = \overline{X^2} - (\overline{X})^2$
+\\
+Замечание: $s^2 = \frac{1}{n}\sum_{i=1}^n(X_i - \overline{X})^2$ (такая функция называется выборочным 2 моментом)
+\\
+\\
+Пусть $X_1,\dots,X_n$ - выборка. Упорядочим её элемнты по неубыванию. Полученный ряд
+$$ X_{(1)} \leq X_{(2)} \leq \dots \leq X_{(n)} $$
+называется \textbf{вариационным рядом}, а k-й член вариационного ряда называется \textbf{k-й порядковой статистикой}
+\\
+Замечание: пусть выборка размера n из распределения P, с функцией распределения F и плотностью p. Тогда плотность k-й порядковой статистики вычисляется по формуле:
+$$ p_{X_{(k)} }(x) = n C_{n-1}^{k-1}p(x)F^{k-1}(x)(1 -F(x))^{n-k}$$
+
+\end{document}

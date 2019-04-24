@@ -1,0 +1,92 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{математическая статистика. Билеты}
+\author{alexander.veselyev }
+\date{\today}
+
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc} % указывает кодировку документа
+\usepackage[T2A]{fontenc} % указывает внутреннюю кодировку TeX 
+\usepackage[russian]{babel} % указывает язык документа
+
+\usepackage{amsmath}
+
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+\begin{document}
+\section{Гауссовская линейная модель. Хи-квадрат распределение. Теорема об ортогональном разложении гауссовского вектора. Оптимальность оценки.}
+
+\textbf{Определение} Случайная величина $\xi$ имеет распределение \textbf{Хи-квадрат с k степенями свободы}, если $\xi\sim\Gamma(\frac{k}{2},\frac{1}{2})$\\
+
+\textbf{Свойство} Пусть $\xi_1,\dots,\xi_n\sim\mathcal{N}(0,1)$ и независимы
+$\Rightarrow$ $\sum_{i=1}^n\xi^2\sim\chi^2_k$\\ 
+ 
+\textbf{Теорема} (ортогональное разложение гауссовского вектора)\\
+Пусть $\xi \sim \mathcal{N}(a, \sigma^2I_n)$ - гауссовский случайный вектор размерности n  с независимыми компонентами. Пусть также $L_1\oplus\dots\oplus L_k = \mathbb{R}^n$ - разложение в прямую сумму ортогональных подпространств. и $\eta_j = proj_{L_j}\xi$ - проекция вектора $\xi$ на подпространство $L_j$.\\
+Тогда $\eta_1,\dots,\eta_k$ - независимы в совокупности, причем\\
+$\mathbf{E}\eta_j = proj_{L_j}a$\\
+$$\frac{1}{\sigma^2}\|\eta_j - \mathbf{E}\eta_j\|^2 \sim \chi^2_{d_j}$$
+где $d_j = dim L_j$\\
+$\blacktriangleleft$\\
+Пусть $e_1\dots e_n$ - ортонормированный базис в $\mathbb{R}^n$, причем $I_j$ - множество индексов, соответствующих базису в подпространстве $L_j$, т.е. $\{e_i, i \in I_j\}$ - базис $L_j$\\
+обозначим $\gamma_i = \langle\xi,e_i\rangle$, $\gamma = (\gamma_1,\dots,\gamma_n)^T$.\\
+Тогда $\gamma = B\xi,\ \ B = (e_1^T\dots,e_n^T)^T$ - ортогональная матрица.\\
+Вектор $\gamma$ также является гауссовским, как линейное преобразование гауссовского вектора $\xi$, причем.\\
+$\mathbf{E}\gamma = B\mathbf{E}\xi = Ba$\\
+$\mathbf{D}\gamma = B\mathbf{D}\xi B^T = B\sigma^2I_nB^T = \sigma^2I_n,\ \ BB^T = I_n$\\
+Получаем, что $\gamma\sim\mathcal{N}(Ba, \sigma^2I_n)$, причем его компоненты независимы в совокупности, по критерию независимости компонент гауссовского вектора.\\
+Проекция имеет вид $\eta_j = proj_{L_j}\xi = \sum_{i\in I_j}\langle\xi, e_i\rangle e_i = \sum_{i\in I_j}\gamma_ie_i$\\
+Отсюда получаем, что векторы $\eta_1\dots\eta_k$ - независимы в совокупности как функции от независимых компонент вектора $\xi$\\
+$\mathbf{E}\eta_j = \sum_{i\in I_j}\langle\mathbf{E}\xi, e_i\rangle e_i = proj_{L_j}\mathbf{E}\xi = proj_{L_j}a$\\
+Поскольку базис ортогональный, а величины $(\gamma_i - \mathbf{E}\gamma_i) \sim \mathcal{N}(0, \sigma^2)$ и независимы в совокупности, получаем: 
+$$ \frac{1}{\sigma^2}\|\eta_j - \mathbf{E}\eta_j\|^2 = \frac{1}{\sigma^2}\| \sum_{i\in I_j}(\gamma_i - \mathbf{E}\gamma_i)^2e_i \|^2 =  \frac{1}{\sigma^2}\sum_{i\in I_j}(\gamma_i - \mathbf{E}\gamma_i)^2 \sim \chi^2_{d_j} $$
+$\blacktriangleright$\\
+
+\textbf{Гауссовская регрессионная модель}\\
+
+Пусть $\varepsilon$ - гауссовский вектор, т.е. $\varepsilon \sim \mathcal{N}(0, \sigma^2I_n)$\\
+$X = l + \varepsilon$\\
+
+$$p_X(x) = \left(\frac{1}{\sqrt{2\pi \sigma^2}}\right)^n\exp{\frac{-\sum{(x_i -l_i)^2}}{2\sigma
+^2}} $$	
+
+
+$X = proj_LX + proj_{L^\perp}X$\\
+$\Rightarrow\ \sum{(x_i-l_i)^2} = \|x - l\|^2 = \|proj_Lx - l\|^2 + \|proj_{l^\perp}x\|^2$\\
+(Теорема Пифагора и факт, что $proj_{L^\perp}l = 0$ )\\
+$\Rightarrow\ p_X(x) = \left(\frac{1}{\sqrt{2\pi\sigma^2}}\right)^n\exp{\frac{-\|proj_Lx - l\|^2 - \|proj_{l^\perp}x\|^2}{2\sigma^2}}$\\
+По критерию Неймана-Фишера:
+$s(x) = (proj_LX, \|proj_LX - X\|^2)$ - достаточная статистика.\\
+\textbf{Теорема} (б/д)\\
+$(proj_LX, \|proj_LX - X\|^2)$ - полная.\\
+
+\textbf{Утверждение} $\widehat{\theta}$ - оптимальная оценка $\theta$\\
+$Z\widehat{\theta}$ - оптимальная оценка $l$\\
+$\frac{1}{n-k}\|X-Z\widehat{\theta}\|^2$ - оптимальная оценка $\sigma^2$\\
+
+$\blacktriangleleft$\\
+
+$proj_{l^\perp}X = X - Z\widehat{\theta}$ $proj_LX = Z\widehat{\theta}$\\
+
+$\widehat{\theta} = (Z^TZ)^{-1}Z^T(Z\widehat{\theta})$\\
+
+Получаем, что все оценки оптимальные, так как являются несмещенными и функциями от полных достаточных статистик.\\
+
+$\blacktriangleright$\\
+
+\textbf{Утверждение} В гауссовской линейной модели $\widehat{\theta}$ и $X - Z\widehat{\theta}$ независимы, причем $\frac{1}{\sigma^2}\|Z\widehat{\theta} - Z\theta\|^2\sim\chi^2_k$ и $\frac{1}{\sigma^2}\|X-Z\widehat{\theta}\|^2\sim\chi^2_{n-k}$\\
+$\blacktriangleleft$\\
+
+$Z\widehat{\theta} = proj_LX \ \Rightarrow\ X - Z\widehat{\theta} = proj_{L^\perp}X$\\
+По теореме о разложении гауссовского вектора:\\
+$\frac{1}{\sigma^2}\|Z\widehat{\theta} - \mathbf{E}proj_Ll\|^2 = \frac{1}{\sigma^2}\|Z\widehat{\theta} - Z\theta\|^2\sim\chi^2_k$\\
+$\frac{1}{\sigma^2}\|(X - Z\widehat{\theta}) - \mathbf{E}(X - Z\theta)\|^2 = $ ($\mathbf{E}(X - Z\theta) = 0$) $ = \frac{1}{\sigma^2}\|(X - Z\widehat{\theta})\|^2\sim\chi^2_{n-k}$\\
+
+$Z\widehat{\theta}$ и $X - Z\widehat{\theta}$ независимы $\Rightarrow$ $\widehat{\theta} = (Z^TZ)^{-1}Z^TZ\widehat{\theta}$ независима с $X-Z\widehat{\theta}$ $\Rightarrow$ $\widehat{\theta}$ и $\widehat{\sigma^2}$ независимы.\\
+
+$\blacktriangleright$\\
+
+\end{document}

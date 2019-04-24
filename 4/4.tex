@@ -1,0 +1,231 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{математическая статистика. Билеты}
+\author{alexander.veselyev }
+\date{\today}
+
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc} % указывает кодировку документа
+\usepackage[T2A]{fontenc} % указывает внутреннюю кодировку TeX 
+\usepackage[russian]{babel} % указывает язык документа
+
+\usepackage{amsmath}
+
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+\begin{document}
+
+\section{Выборочные квантили. Асимптотическая нормальность выборочной квантили. Медиана, выборочная медиана и ее асимптотическаянормальность (б/д). Примеры}
+
+\textbf{Определение} Пусть F(x) - функция распределения на $\mathbb{R}$. $\gamma \in [0, 1]$.\\
+$\gamma$-\textbf{квантиль} функции распределения F - это $x_\gamma = \inf_{x\in\mathbb{R}}\{F(x)\geq\gamma\}$\\
+Если функция распределения непрерывна, то $F(x_\gamma) = \gamma$\\
+Если она ще и строго монотонная, то $x_\gamma$ единственная.\\
+\textbf{Определение} Пусть $X_1,\dots,X_n$ - выборка. $X_{(1)},\dots,X_{(n)}$ - вариационный ряд.\\
+Тогда \textbf{выборочная квантиль уровня $\gamma$} - 
+
+
+
+\begin{equation*}
+z_\gamma^n =
+	\begin{cases}
+		X_{( [n\gamma] + 1)} & n\gamma\notin\mathbb{N}\\
+		X_{([n\gamma])} & n\gamma\in\mathbb{N}
+	\end{cases}
+\end{equation*}
+
+\textbf{Теорема} (о выборочной квантили)\\
+Пусть $X_1,\dots,X_n$ - выборка из распределения P, с функцией распределения F и плотностью f.\\
+Пусь $z_p$ - p-квантиль функции распределения F. Пусть f непрерывно дифференцируема в окрестности точки $z_p$ и $f(z_p) > 0$\\
+Тогда $\sqrt{n}(X_{([np]+1)} - z_p) \xrightarrow{d} \mathcal{N}(0, \frac{p(1-p)}{f^2(z_p)})$\\
+$\blacktriangleleft$\\
+Начнем с того, что выведем плотность k-й порядковой статистики (билет 1)\\
+Заметим, что если $X_{(k)}\leq x$ то хотя бы k элементов выборки не больше x\\
+Если $F_k(x)$ - функция распредения k-й порядковой статистики, то
+$$F_k(x) = P(X_{(k)} \leq x) = \sum_{i=k}^n{C_n^iF^i(x)(1-F(x))^{n-i}} $$
+
+Продифференцируем $F_k(x)$ чтобы получить плотность $f_k(x)$
+
+$$ f_k(x) = \sum_{i=k}^n{iC_n^iF^{i-1}(x)(1 - F(x))^{n - 1}f(x)} - \sum_{i=k}^n{(n - i)C_n^iF^i(x)(1 - F(x))^{n - i - 1}f(x)}$$
+
+Заметим, что
+
+$$ iC_n^i = \frac{n!}{(i-1)!(n-i)!} = nC_{n-1}^{i-1} $$
+
+$$ (n-i)C_n^i = \frac{n!}{i!(n - i - 1)!} = nC_{n-1}^i$$
+
+Тогда, заменив идекс суммирования в первой сумме на $s = i - 1$ получим
+
+$$ \sum_{s = k - 1}^n{nC_{n-1}^sF^s(x)(1 - F(x))^{n - s - 1}f(x)} - \sum_{i=k}^n{(n - i)C_n^iF^i(x)(1 - F(x))^{n - i - 1}f(x)}$$
+
+$$ = nC_{n-1}^{k-1}F^{k-1}(x)(1 - F(x))^{n - k}f(x)$$
+
+Теперь покажем, что если мы возьмем последовательность случайных величин $T_n$, построенных по правилу
+
+$$ T_n = \frac{f(z_p)\sqrt{n}}{\sqrt{p(1-p)}}(X_{(k)} - z_p)$$
+
+где $k = [np] + 1$\\
+
+Получим $T_n \xrightarrow{d} \mathcal{N}(0,1)$\\
+
+Докажем один вспомогательный факт:\\
+
+Если $\xi$ - случайная величина с плотностью $f_\xi$, то случайная величина $\eta = a\xi + b$, a > 0, b - константы, имеет плотность $f_\eta = \frac{1}{a}f_\xi(\frac{x - b}{a})$\\
+
+Это несложно понять, т.к.
+
+$$ F_\eta(x) = P(\eta\leq x) = P(a\xi + b\leq x) = P(\xi\leq \frac{x-b}{a}) = F_\xi(\frac{x-b}{a})$$
+
+Осталось продифференцировать это равенство, чтобы получить требуемое.\\
+
+Пусть $q_n(x)$ - плотность $T_n$. Тогда
+
+$$q_n(x) = \frac{\sqrt{p(1-p)}}{f(z_p)\sqrt{n}}f_k(z_p + \frac{x\sqrt{p(1-p)}}{f(z_p)\sqrt{n}})$$
+
+Обозначим $t_n = z_p + \frac{x\sqrt{p(1-p)}}{f(z_p)\sqrt{n}}$\\
+
+Тогда 
+
+$$ q_n(x) = nC_{n-1}^{k-1}f(t_n)F(t_n)^{k-1}(1-F(t_n))^{n-k}\frac{\sqrt{p(1-p)}}{f(z_p)\sqrt{n}} $$
+
+Обозначим $q_n(x) = A_1(n)A_2(n)A_3(n)$, где\\
+
+$A_1(n) = \frac{f(t_n)}{f(z_p)}$\\
+$A_2(n) = nC_{n-1}^{k-1}\sqrt{\frac{p(1-p)}{n}}p^{k-1}(1-p)^{n-k}$\\
+$A_3(n) = \left(\frac{F(t_n)}{p}\right)^{k-1}\left(\frac{1-F(t_n)}{1-p}\right)^{n-k}$\\
+
+Найдем пределы всех 3х выражений при $n\rightarrow+\infty$\\
+
+$A_1$:\\
+Заметим, что $t_n\rightarrow z_p$ при $n\rightarrow+\infty$ и $f(x)$ непрерывна в окрестности $z_p$.
+Тогда
+
+$$ \frac{f(t_n)}{f(z_p)}\rightarrow 1 \Rightarrow A_1(n)\rightarrow 1,\ n\rightarrow+\infty$$
+
+$A_2$:\\
+
+Заметим, что
+
+$$ A_2(n) = kC_n^k\sqrt{\frac{p(1-p)}{n}}p^{k-1}(1-p)^{n-k} $$
+
+Применив формулу Стирлинга
+
+$$ A_2(n)\sim k\frac{\sqrt{2\pi n}\left(\frac{n}{e}\right)^n}{\sqrt{2\pi k}\left(\frac{k}{e}\right)^k \sqrt{2\pi (n-k)}\left(\frac{n-k}{e}\right)^{n-k}}\sqrt{\frac{p(1-p)}{n}}p^{k-1}(1-p)^{n-k} $$
+
+Учитывая, что $k = [np] + 1$ $\Rightarrow$ $k\sim np$ и $n-k\sim n(1-p)$\\
+
+$$ A_2(n)\sim np\frac{\sqrt{2\pi n}\left(\frac{n}{e}\right)^n}{\sqrt{2\pi np}\left(\frac{k}{e}\right)^k \sqrt{2\pi n(1-p))}\left(\frac{n-k}{e}\right)^{n-k}}\sqrt{\frac{p(1-p)}{n}}p^{k-1}(1-p)^{n-k} $$
+
+Получим
+
+$$A_2(n)\sim\frac{1}{\sqrt{2\pi}}\left(\frac{np}{k}\right)^k\left(\frac{n(1-p)}{n-k}\right)^{n-k}$$
+
+Теперь покажем, что $A_2(n)\rightarrow\frac{1}{\sqrt{2\pi}}$\\
+
+$$A_2(n)\sim\frac{1}{\sqrt{2\pi}}exp\left(k\ln{\frac{np}{k}} + (n-k)\ln{\frac{n(1-p)}{n-k}}\right)$$
+
+Далее, k отличается от np не более, чем на 1. Значит, можем разложить логарифмы в ряд Тейлора в нуле
+
+$$ \ln{\frac{np}{k}} = \frac{np}{k} - 1 + O\left(\frac{1}{k^2}\right) = \frac{np - k}{k} + O\left(\frac{1}{n^2}\right)$$
+
+$$\ln{\frac{n(1-p)}{n - k}} = \frac{n(1-p)}{n - k} - 1 + O\left(\frac{1}{(n-k)^2}\right) = \frac{k - np}{n - k} + O\left(\frac{1}{n^2}\right)$$
+
+Значит
+
+$$ A_2(n)\sim \frac{1}{\sqrt{2\pi}}exp\left( np - k + k - np + O\left(\frac{1}{n^2}\right) \right)\rightarrow \frac{1}{\sqrt{2\pi}},\ n\rightarrow+\infty $$
+
+$A_3$:\\
+
+Заметим, что $F(t_n)\rightarrow F(z_p) = p$ при $n\rightarrow+\infty$ Из этого делаем вывод, что
+
+$$ \left(\frac{F(t_n)}{p}\right)^{k-1} \sim  \left(\frac{F(t_n)}{p}\right)^{k} $$
+
+Далее
+
+$$A_3(n)\sim exp\left( k\ln{\frac{F(t_n)}{p}} + (n-k)\ln{\frac{1 - F(t_n)}{1 - p}} \right)$$
+
+Теперь разложим $F(t_n)$ в ряд Тейлора в точке $z_p$, пользуясь непрерывной дифференцируемостью f
+
+$$ F(t_n) = F(z_p) + (t_n - z_p)f(z_p) + \frac{1}{2}(t_n-z_p)^2f'(z_p) + o((t_n-z_p)^2) $$
+
+$$ = p + \sqrt{\frac{p(1-p)}{n}}x + \frac{f'(z_p)}{f^2(z_p)}\frac{p(1-p)}{2n}x^2 + o((t_n-z_p)^2) $$
+
+Тогда
+
+$$ \frac{F(t_n)}{p} = 1 + \sqrt{\frac{1-p}{np}}x + \frac{f'(z_p)}{f^2(z_p)}\frac{1-p}{2n}x^2 + o\left(\frac{1}{n}\right)  $$
+
+Если взять логарифм, то его можно разложить в ряд Тейлора
+
+$$ \ln{\frac{F(t_n)}{p}} =  \sqrt{\frac{1-p}{np}}x + \frac{f'(z_p)}{f^2(z_p)}\frac{1-p}{2n}x^2 + o\left(\frac{1}{n}\right) - \frac{1}{2}\frac{1-p}{np}x^2 + o\left(\frac{1}{n}\right) $$
+
+Тогда
+
+$$ k\ln{\frac{F(t_n)}{p}} =  \sqrt{\frac{1-p}{np}}xk + \frac{f'(z_p)}{f^2(z_p)}\frac{k(1-p)}{2n}x^2  - \frac{1}{2}\frac{k(1-p)}{np}x^2 + o(1) $$
+
+Аналогично
+
+$$ (n-k)\ln{\frac{1 - F(t_n)}{1 - p}} = -\sqrt{\frac{p}{n(1-p)}}x(n-k) - \frac{f'(z_p)}{f^2(z_p)}\frac{p(n-k)}{2n}x^2 - \frac{1}{2}\frac{p}{1-p}\frac{n-k}{n}x^2 + o(1) $$
+
+Теперь воспользуемся тем, что $|k - np|\leq 1$, т.е. $k = np + O\left(\frac{1}{n}\right)$
+
+$$ k\ln{\frac{F(t_n)}{p}} = \dots = x\sqrt{np(1-p)} + \frac{p(1-p)}{2}\frac{f'(z_p)}{f^2(z_p)}x^2 - \frac{1-p}{2}x^2 + o(1)$$
+
+$$(n-k)\ln{\frac{1 - F(t_n)}{1 - p}} = \dots = -x\sqrt{np(1-p)} -\frac{p(1-p)}{2}\frac{f'(z_p)}{f^2(z_p)}x^2 - \frac{p}{2}x^2 + o(1)$$
+
+Следовательно
+
+$$A_3(n)\sim exp\left(-\frac{x^2}{2} + o(1)\right)\rightarrow exp\left(-\frac{x^2}{2}\right)$$
+
+В итоге получили, что для всех x
+
+$$ \lim_{n\rightarrow+\infty}{q_n(x)} = \frac{1}{\sqrt{2\pi}}exp\left(-\frac{x^2}{2}\right)$$
+
+Это означает, что $q_n(x)$ будет равномерно сходиться к плотности $\mathcal{N}(0,1)$ на любом компакте. Из равномерной сходимости на отрезке $[a, b]$ следует, что
+
+$$ \lim_{n\rightarrow+\infty}{(F_{T_n}(b) - F_{T_n}(a))} = \lim_{n\rightarrow+\infty}\int_a^b{q_n(x)dx} = \Phi(b) - \Phi(a)$$
+
+Теперь нужно доказать, что $F_{T_n}\rightarrow\Phi(x)$ для всех $x$, где $\Phi(x)$ - стандартное нормальное распределение.\\
+Заметим, что для любого $a < b$
+
+$$ \overline{\lim}_{n\rightarrow+\infty}|F_{T_n}(b) - \Phi(b)| \leq \overline{\lim}_{n\rightarrow+\infty}|F_{T_n}(b) - F_{T_n}(a) + \Phi(b) - \Phi(a)| + \overline{\lim}_{n\rightarrow+\infty}|F_{T_n}(a)  - \Phi(a)|$$
+
+Первый предел уходит в 0. Тогда
+
+$$ \overline{\lim}_{n\rightarrow+\infty}|F_{T_n}(b) - \Phi(b)| \leq  \overline{\lim}_{n\rightarrow+\infty}|F_{T_n}(a)  - \Phi(a)|$$
+
+$$ \overline{\lim}_{n\rightarrow+\infty}|F_{T_n}(a)  - \Phi(a)|\leq\overline{\lim}_{n\rightarrow+\infty}(F_{T_n}(a) + \Phi(a)) = \Phi(a) + \overline{\lim}_{n\rightarrow+\infty}F_{T_n}(a) $$
+
+Пользуясь тем, что $F_{T_n} < 1$
+
+$$ \Phi(a) + \overline{\lim}_{n\rightarrow+\infty}F_{T_n}(a) \leq \Phi(a) + \overline{\lim}_{n\rightarrow+\infty}(F_{T_n}(a) + F_{T_n}(-a) + 1) = \Phi(a) + \Phi(a) - \Phi(-a) + 1 $$
+
+Но эту сумму можно сделать сколь угодно малой, устремив a к $-\infty$. Значит $T_n\xrightarrow{d_\theta}\mathcal{N}(0,1)$, что и требовалось\\
+$\blacktriangleright$\\
+
+\textbf{Определение} \textbf{Медиана} - квантиль уровня $\frac{1}{2}$\\
+
+\textbf{Опредление} \textbf{Выборочная медиана}
+
+\begin{equation*}
+\hat{\mu}=
+	\begin{cases}
+		X_{(k+1)}&n=2k+1\\
+		\frac{X_{(k)} + X_{(k+1)}}{2}&n=2k
+	\end{cases}
+\end{equation*}
+
+\textbf{Теорема} (выборочная медиана, б/д) 
+
+$$ \sqrt{n}(\hat{\mu} - \mu) \xrightarrow{d} \mathcal{N}(0, \frac{1}{4f^2(\mu)}) $$
+
+\textbf{Пример} $X_1,\dots,X_n \sim \mathcal{N}(\theta, 1)$\\
+Ц.П.Т: $\sqrt{n}(\overline{X} - \theta) \xrightarrow{d} \mathcal{N}(0,1)$\\
+Теорема о выборочной медиане:  $ \sqrt{n}(\hat{\mu} - \mu) \xrightarrow{d} \mathcal{N}(0, \frac{\pi}{2}) $\\
+\textbf{Пример} Распределение Коши
+$$ f(x) = \frac{1}{\pi ((x - \theta)^2 + 1)} $$
+
+По теореме $ \sqrt{n}(\hat{\mu}  - \theta) \xrightarrow{d} \mathcal{N}\left(0,\frac{\pi^2}{4}\right)$
+\end{document}
